@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% block content %}
+    <div class="container">
+        <div class="col-xs-12">
+            {% if enterurl %}
+                <form action="{% url 'inputurl' %}" method="post">
+                    {% csrf_token %}
+                    <input id="url" class="form-control" placeholder="Enter Url" autocomplete="off"  type="text" name="url">
+                    <input type="submit" class="btn btn-primary" value="Submit Url">
+
+                </form>
+            {% elif submitinfo %}
+                <form action="{% url 'submitinfo' %}" method="post">
+                    {% csrf_token %}
+                    <input id="url" type="hidden" name="url" value="{{ url }}">
+                    <input id="artist" class="form-control" placeholder="Enter Artist" type="text" name="artist" value="{{ artist }}">
+                    <input id="title" class="form-control" placeholder="Enter Title" type="text" name="title" value="{{ title }}">
+                    <input type="submit" class="btn btn-primary" value="Submit Info">
+                </form>
+            {% else %}
+                Something went wrong
+            {% endif %}
+
+
+        </div>
+    </div>
+{% endblock %}
