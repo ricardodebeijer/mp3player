@@ -43,7 +43,7 @@
         var location = document.getElementById('song_location');
         if (source.src.length === 0 || next) {
 
-            source.src = '{{ MEDIA_URL }}' + '/' + location.value;
+            source.src = '/{{ MEDIA_URL }}'  + location.value;
             source.addEventListener('timeupdate', function () {
                     var current = document.getElementById('current-time');
                     current.innerText = Math.round(source.currentTime) + '';
@@ -65,7 +65,7 @@
                     title.innerText = total.substr(indexsep + 1, total.length - ".mp3".length);
 
                     var coverart = document.getElementById('cover-art');
-                    coverart.src = "{{ MEDIA_URL }}/" + total.substr(0, total.length - ".mp3".length) + '.jpg';
+                    coverart.src = "/{{ MEDIA_URL }}" + total.substr(0, total.length - ".mp3".length) + '.jpg';
                 }, false
             );
         }

@@ -127,6 +127,6 @@ STATICFILES_DIRS = (
 
 # Media Location
 
-MEDIA_URL = '/music/'
-#
+MEDIA_URL = 'music/'
+
 #MEDIA_ROOT will be in separate file
