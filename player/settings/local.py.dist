@@ -1,0 +1,3 @@
+from .base import *
+#(Possibly create and ) enter path in local.py
+MEDIA_ROOT = 'C:/../mp3player/music/'

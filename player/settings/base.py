@@ -50,10 +50,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mp3player.urls'
 
+PACKAGE_ROOT = os.path.abspath('')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(PACKAGE_ROOT, 'templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -75,8 +76,10 @@ WSGI_APPLICATION = 'mp3player.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': PACKAGE_ROOT + '/db.cnf',
+        },
     }
 }
 
@@ -116,13 +119,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'mp3player', 'static', 'static_root')
+STATIC_ROOT = os.path.join(PACKAGE_ROOT, 'mp3player', 'static', 'static_root')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'mp3player', 'static', 'static_dirs'),
+    os.path.join(PACKAGE_ROOT, 'mp3player', 'static', 'static_dirs'),
 )
 
-# Meida Location
-MEDIA_ROOT = 'C:/Users/Ricar/Documents/4.Git/mp3player/music/'
+# Media Location
 
 MEDIA_URL = '/music/'
+#
+#MEDIA_ROOT will be in separate file

@@ -1,0 +1,7 @@
+#(Possibly create and ) enter credentials in db.cnf
+[client]
+database = mp3player
+host = #localhost or IP
+user = mp3player
+password = DB_PASSWORD
+default-character-set = utf8
