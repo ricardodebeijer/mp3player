@@ -1,0 +1,2 @@
+class InvalidModelInstanceException(Exception):
+    pass
