@@ -20,8 +20,19 @@
         </div>
         <p id="duration-time" class="">0:00</p>
     </div>
+
+    <input id="vol-control"
+           type="range"
+           min="0" max="100"
+           step="1"
+           oninput="SetVolume(this.value)"
+           onchange="SetVolume(this.value)"
+            />
+    <label id="volume-amount">50</label>
+
     <input id="song_location" style="width: 100%; color: black;"
            value="" type="hidden">
+
     <p class="glyphicon glyphicon-step-forward player-button" onclick=next_action()></p>
 </div>
 
@@ -30,6 +41,9 @@
         var hash = caller.id.substr(3);
         var source = document.getElementById('src' + hash).value;
         var location = document.getElementById('song_location');
+        console.log(hash);
+        console.log(source);
+        console.log(location);
         location.value = source;
         play_song(true);
         var id = "#" + caller.id;
@@ -91,7 +105,13 @@
     function pause_action() {
         pause_song();
     }
+    function SetVolume(val) {
+        var player = document.getElementById('audioplayer');
+        player.volume = val / 100;
 
+        var volumeAmount = document.getElementById('volume-amount');
+        volumeAmount.innerHTML = val;
+    }
 
     {#    function playrandom() {#}
     {#        var source = document.getElementById('audioplayer');#}
