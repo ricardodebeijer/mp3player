@@ -125,6 +125,9 @@ STATICFILES_DIRS = (
     os.path.join(PACKAGE_ROOT, 'mp3player', 'static', 'static_dirs'),
 )
 
+
+LOGGING_CONFIG = None
+
 # Media Location
 
 MEDIA_URL = 'music/'

@@ -11,7 +11,7 @@
                     <li>
                         <p id="btn{{ song.hash }}"  onclick="playthissong(this)"
                            class="glyphicon glyphicon-unchecked songitem"></p>
-                        <input id="src{{ song.hash }}" type="hidden" value="{{ song.audio_file }}">
+                        <input id="src{{ song.hash }}" type="hidden" value="{{ song.source }}">
                         <b>{{ song.title }}</b> <a>{{ song.artist }}</a>
                         {#                        <i>"{{ song.audio_file }}"</i>#}
                     </li>

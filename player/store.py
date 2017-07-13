@@ -18,7 +18,7 @@ def getsongs():
                 song = Song()
                 song.artist = artist
                 song.title = s.split('.mp3')[0]
-                song.audio_file = a + '/' + s
+                song.source = a + '/' + s
                 song.hash = hashlib.md5(str(artist.name + s).encode('utf-8')).hexdigest()
                 store.append(song)
     return store
