@@ -1,130 +1,31 @@
 <div class="col-xs-6 controls">
-    <img id="cover-art" class="img-responsive cover-art">
-    <b id="title-name"></b>
-    <a id="artist-name" href="/artist/6Wr3hh341P84m3EI8qdn9O"></a>
+    <img id="cover-art" class="img-responsive cover-art" src="{{ song.source_jpg }}"/>
 </div>
 <div class="col-xs-6 controls">
     <div>
-        <audio id='audioplayer' preload='auto' onended="player_ended()"></audio>
-        {#        <p class="glyphicon glyphicon-step-backward player-button" onclick=previous_action()></p>#}
-        <p id="btnplay" class="glyphicon glyphicon-play player-button" onclick=play_action()></p>
-        <p id="btnpause" class="glyphicon glyphicon-pause player-button" style="display: none"
-           onclick=pause_action()></p>
-        {#        <p class="glyphicon glyphicon-step-forward player-button" onclick=next_action()></p>#}
-        {#        <button class="glyphicon glyphicon-random player-button" onclick=playrandom()></button>#}
+        <audio id='audioplayer' preload='auto' src="{{ song.source_mp3 }}"></audio>
+        <p id="btnback" class="glyphicon glyphicon-step-backward player-button"></p>
+        <p id="btnplay" class="glyphicon glyphicon-play player-button"></p>
+        <p id="btnpause" class="glyphicon glyphicon-pause player-button" style="display: none"></p>
+        <p id="btnforward" class="glyphicon glyphicon-step-forward player-button"></p>
     </div>
     <div class="progress-bar-container">
         <p id="current-time" class="">0:00</p>
         <div class="progress-bar__bg">
-            <div id="bar" class="progress-bar__fg" style="width: 0%;"></div>
+            <div id="bar" class="progress-bar__fg" style="width: 0;"></div>
         </div>
         <p id="duration-time" class="">0:00</p>
     </div>
-
-    <input id="vol-control"
-           type="range"
-           min="0" max="100"
-           step="1"
-           oninput="SetVolume(this.value)"
-           onchange="SetVolume(this.value)"
-            />
-    <label id="volume-amount">50</label>
-
-    <input id="song_location" style="width: 100%; color: black;"
-           value="" type="hidden">
-
-    <p class="glyphicon glyphicon-step-forward player-button" onclick=next_action()></p>
+    <div>
+        <input id="vol-control"
+               type="range"
+               min="0" max="100"
+               step="1"
+        />
+        <label id="volume-amount">50</label>
+    </div>
+    <div>
+        <b id="title-name">{{ song.title }}</b>
+        <a id="artist-name" href="/player/artist/{{ song.artist_hash }}">{{ song.artist_name }}</a>
+    </div>
 </div>
-
-<script>
-    function playthissong(caller) {
-        var hash = caller.id.substr(3);
-        var source = document.getElementById('src' + hash).value;
-        var location = document.getElementById('song_location');
-        console.log(hash);
-        console.log(source);
-        console.log(location);
-        location.value = source;
-        play_song(true);
-        var id = "#" + caller.id;
-        $('.songitem').removeClass('glyphicon-expand active-song').addClass('glyphicon-unchecked');
-        $(id).toggleClass('glyphicon-unchecked').toggleClass('glyphicon-expand').addClass('active-song');
-    }
-
-
-    function play_song(next) {
-        var source = document.getElementById('audioplayer');
-        var location = document.getElementById('song_location');
-        if (source.src.length === 0 || next) {
-
-            source.src = '/{{ MEDIA_URL }}'  + location.value;
-            source.addEventListener('timeupdate', function () {
-                    var current = document.getElementById('current-time');
-                    current.innerText = Math.round(source.currentTime) + '';
-
-                    var one = source.duration / 100;
-                    var percentage = source.currentTime / one;
-                    $("#bar").width(percentage + '%');
-
-                }, false
-            );
-            source.addEventListener('durationchange', function () {
-                    var duration = document.getElementById('duration-time');
-                    duration.innerText = Math.round(source.duration) + '';
-                    var total = location.value;
-                    var indexsep = total.indexOf('/', 1);
-                    var artist = document.getElementById('artist-name');
-                    artist.innerText = total.substr(0, indexsep);
-                    var title = document.getElementById('title-name');
-                    title.innerText = total.substr(indexsep + 1, total.length - ".mp3".length);
-
-                    var coverart = document.getElementById('cover-art');
-                    coverart.src = "/{{ MEDIA_URL }}" + total.substr(0, total.length - ".mp3".length) + '.jpg';
-                }, false
-            );
-        }
-        source.play();
-        $("#btnplay").hide();
-        $("#btnpause").show();
-    }
-    function pause_song() {
-        var source = document.getElementById('audioplayer');
-        source.pause();
-        $("#btnplay").show();
-        $("#btnpause").hide();
-    }
-
-
-    function player_ended() {
-        var source = document.getElementById('audioplayer');
-        alert("done!");
-    }
-    function play_action() {
-        play_song();
-    }
-    function pause_action() {
-        pause_song();
-    }
-    function SetVolume(val) {
-        var player = document.getElementById('audioplayer');
-        player.volume = val / 100;
-
-        var volumeAmount = document.getElementById('volume-amount');
-        volumeAmount.innerHTML = val;
-    }
-
-    {#    function playrandom() {#}
-    {#        var source = document.getElementById('audioplayer');#}
-    {#        source.src = '{{ MEDIA_URL }}/Halestorm/Mayhem [Official Video].mp3';#}
-    {#    }#}
-    function next_action() {
-        play_song(true);
-    }
-    {#    function previous_action() {#}
-    {#        var source = document.getElementById('audioplayer');#}
-    {#        source.src = '{{ MEDIA_URL }}/Halestorm/Mayhem [Official Video].mp3';#}
-    {#    }#}
-
-</script>
-
-

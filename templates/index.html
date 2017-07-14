@@ -1,19 +1,22 @@
 {% extends 'template.html' %}
 {% block content %}
     <div class="container">
-        {% include 'widgets/player.html' %}
         <div class="col-xs-12">
-          <br>
-        <br><br>
+            {% include 'widgets/player.html' with song=current_song %}
+        </div>
 
+        <div class="col-xs-12">
             <ul>
                 {% for song in songs %}
                     <li>
-                        <p id="btn{{ song.hash }}"  onclick="playthissong(this)"
-                           class="glyphicon glyphicon-unchecked songitem"></p>
-                        <input id="src{{ song.hash }}" type="hidden" value="{{ song.source }}">
-                        <b>{{ song.title }}</b> <a>{{ song.artist }}</a>
-                        {#                        <i>"{{ song.audio_file }}"</i>#}
+                        <p id="btn{{ song.hash }}" class="glyphicon songitem
+                        {% if current_song.hash == song.hash %}
+                           glyphicon-expand
+                           active-song
+                         {% else %}
+                         glyphicon-unchecked
+                        {% endif %}"></p>
+                        <b>{{ song.title }}</b> <a href="{% url 'artist' song.artist.hash %}">{{ song.artist }}</a>
                     </li>
                 {% endfor %}
             </ul>
