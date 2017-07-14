@@ -7,7 +7,7 @@ def get_info(url):
     tree = fromstring(r.content)
     header = tree.findtext('.//title')
     data = str.split(header, '-')
-    print(data)
+    #print(data)
     artist = data[0].strip()
     title = data[1].strip()
     title = clean_title(title)

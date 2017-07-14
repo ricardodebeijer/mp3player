@@ -1,17 +1,16 @@
 from django.shortcuts import render
-from player import downloader, infogather, store
-import threading
+from player import infogather, store
 
 
 def index(request, value=None):
     context = {
-        'songs': store.getsongs(),
+        'songs': store.get_songs(),
         'message': value
     }
     return render(request, 'index.html', context)
 
 
-def addsong(request, url=None, artist=None, title=None):
+def add_song(request, url=None, artist=None, title=None):
     context = {
         'submitinfo': url is not None,
         'enterurl': url is None,
@@ -22,25 +21,22 @@ def addsong(request, url=None, artist=None, title=None):
     return render(request, 'addsong.html', context)
 
 
-def inputurl(request, value=None):
+def input_url(request, value=None):
     url, artist, title = '', '', ''
     if request.method == 'POST':
         url = request.POST.get('url')
-        # print('url: ' + url)
         info = infogather.get_info(url)
         artist = info[0]
         title = info[1]
-    return addsong(request, url, artist, title)
+    return add_song(request, url, artist, title)
 
 
-def submitinfo(request, value=None):
+def submit_info(request, value=None):
     if request.method == 'POST':
         url = request.POST.get('url')
         artist = request.POST.get('artist')
-        title = request.POST.get('title')
-        # print('Info: ' + artist + ' - ' + title)
-        thread = threading.Thread(target=downloader.download, args=[url, artist, title])
-        thread.start()
+        song_title = request.POST.get('title')
+        store.add_item(url, artist, song_title)
     return index(request, 'Download in progess')
 
 
