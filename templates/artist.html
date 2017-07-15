@@ -2,12 +2,12 @@
 {% block content %}
     <div class="container">
         <div class="col-xs-12">
-            Artist: {{ artist.name }}
+            Artist: <b>{{ artist.name }}</b>
             Songs:
             <ul>
-                {% for song in artist.songs %}
+                {% for song in songs %}
                     <li>
-                        <p class="glyphicon glyphicon-unchecked songitem"><b>{{ song.title }}</b></p>
+                        <p id="btn{{ song.hash }}" class="glyphicon glyphicon-unchecked songitem"></p><b>{{ song.title }}</b>
                     </li>
                 {% endfor %}
             </ul>

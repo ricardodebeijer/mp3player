@@ -48,9 +48,9 @@ def submit_info(request, value=None):
 
 def artist(request, value=None):
     artist = Artist.objects.get(hash=value)
-    artist.songs = Song.objects.filter(artist=artist)
     context = {
-        'artist': artist
+        'artist': artist,
+        'songs': artist.songs.all()
     }
     return render(request, 'artist.html', context)
 
