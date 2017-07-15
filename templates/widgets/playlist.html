@@ -1,0 +1,16 @@
+<div class="col-lg-6 col-xs-12 controls">
+    <ul>
+        {% for song in songs %}
+            <li>
+                <p id="btn{{ song.hash }}" class="glyphicon songitem
+                        {% if current_song.hash == song.hash %}
+                           glyphicon-expand
+                           active-song
+                         {% else %}
+                         glyphicon-unchecked
+                        {% endif %}"></p>
+                <b>{{ song.title }}</b> <a href="{% url 'artist' song.artist.hash %}">{{ song.artist }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

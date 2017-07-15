@@ -1,5 +1,6 @@
 import threading
 import os
+from operator import attrgetter
 from os import listdir
 from django.conf import settings
 
@@ -33,6 +34,7 @@ def get_songs():
                 song.source_mp3 = a + '/' + s
 
                 store.append(song)
+    sorted(store, key=attrgetter('artist.name'))
     return store
 
 

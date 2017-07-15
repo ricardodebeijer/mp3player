@@ -1,31 +1,17 @@
 {% extends 'template.html' %}
 {% block content %}
-    <div class="container">
-        <div class="col-xs-12">
-            {% include 'widgets/player.html' with song=current_song %}
-        </div>
 
-        <div class="col-xs-12">
-            <ul>
-                {% for song in songs %}
-                    <li>
-                        <p id="btn{{ song.hash }}" class="glyphicon songitem
-                        {% if current_song.hash == song.hash %}
-                           glyphicon-expand
-                           active-song
-                         {% else %}
-                         glyphicon-unchecked
-                        {% endif %}"></p>
-                        <b>{{ song.title }}</b> <a href="{% url 'artist' song.artist.hash %}">{{ song.artist }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="col-xs-12">
-            {% if message %}
-                {{ message }}
-            {% endif %}
-        </div>
+    {% include 'widgets/coverart.html' with coverart_src=current_song.source_jpg %}
 
+    {% include 'widgets/playlist.html' with songs=songs %}
+
+    {% include 'widgets/player.html' with song=current_song %}
+
+
+
+    <div class="col-xs-12">
+        {% if message %}
+            {{ message }}
+        {% endif %}
     </div>
 {% endblock %}

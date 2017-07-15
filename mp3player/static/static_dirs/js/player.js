@@ -15,17 +15,21 @@ function setvolume(value) {
 }
 
 function checkreloaded() {
-    if (window.performance) {
-        if (performance.navigation.type == 1) {
-            console.info("This page is reloaded");
-            play_song();
-        } else {
-            console.info("This page is not reloaded");
-        }
+    var doplay = sessionStorage.getItem("is_reloaded");
+    console.log(doplay);
+    if (doplay == 1) {
+        console.info("Cookie says play");
+        play_song();
+        sessionStorage.setItem("is_reloaded", 0);
     } else {
-        console.info("window.performance does NOT work on this browser");
+        console.info("Cookie says don't play");
     }
 
+}
+
+function setcookieandreload() {
+    sessionStorage.setItem("is_reloaded", 1);
+    location.reload();
 }
 
 function play_song() {
@@ -45,7 +49,7 @@ function select_song(hash) {
         type: "GET",
         url: "/player/play/" + hash,
         success: function (succes) {
-            location.reload();
+            setcookieandreload();
         }
     });
 }
@@ -55,7 +59,7 @@ function next_song() {
         type: "GET",
         url: "/player/next",
         success: function (succes) {
-            location.reload();
+            setcookieandreload();
         }
     });
 }
@@ -65,7 +69,7 @@ function previous_song() {
         type: "GET",
         url: "/player/previous",
         success: function (succes) {
-            location.reload();
+            setcookieandreload();
         }
     });
 }
