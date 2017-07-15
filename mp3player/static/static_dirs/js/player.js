@@ -10,21 +10,27 @@ function tominutes(time) {
 
 function setvolume(value) {
     var volume = value / 100;
+    localStorage.setItem("user_volume", value);
     $('#audioplayer').prop('volume', volume);
     $('#volume-amount').text(value);
 }
 
-function checkreloaded() {
-    var doplay = sessionStorage.getItem("is_reloaded");
-    console.log(doplay);
-    if (doplay == 1) {
-        console.info("Cookie says play");
-        play_song();
-        sessionStorage.setItem("is_reloaded", 0);
-    } else {
-        console.info("Cookie says don't play");
+function setuservolume() {
+    var volume = localStorage.getItem("user_volume");
+    volume = parseInt(volume);
+    if (!volume) {
+        volume = 50;
     }
 
+    $('#vol-control').val(volume);
+    setvolume(volume);
+}
+
+function checkreloaded() {
+    if (sessionStorage.getItem("is_reloaded") == 1) {
+        play_song();
+        sessionStorage.setItem("is_reloaded", 0);
+    }
 }
 
 function alterTime(val) {
@@ -115,6 +121,14 @@ $(document).ready(function () {
             setvolume(this.value);
         });
 
+    $('#seek')
+        .on('input', function (event) {
+            alterTime(this.value);
+        })
+        .on('change', function (event) {
+            alterTime(this.value);
+        });
+
     $('#audioplayer')
         .on('timeupdate', function () {
             $('#current-time').text(tominutes(this.currentTime));
@@ -131,5 +145,6 @@ $(document).ready(function () {
             next_song();
         });
 
-    checkreloaded()
+    checkreloaded();
+    setuservolume();
 });

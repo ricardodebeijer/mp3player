@@ -10,9 +10,7 @@
         <input type="range"
                id="seek"
                value="0"
-               max=""
-               oninput="alterTime(this.value)"
-               onchange="alterTime(this.value)"/>
+               max=""/>
         <div class="timestamp">
             <span id="current-time" class="">0:00</span>
             <span class="">/</span>
@@ -23,14 +21,8 @@
                type="range"
                min="0" max="100"
                step="1"
-               oninput="SetVolume(this.value)"
-               onchange="SetVolume(this.value)"
-        />
-        <label id="volume-amount">50</label>
-
-        <input id="song_location" style="width: 100%; color: black;"
-               value="" type="hidden">
-
+               />
+        <label id="volume-amount"></label>
     </div>
 
     <div class="col-xs-12">
