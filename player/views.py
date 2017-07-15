@@ -8,7 +8,11 @@ from player.utils import set_sources, set_session_and_return, set_playlist_hashe
 
 
 def index(request, message=None):
-    song = request.session['current_song_json']
+    if 'current_song_json' not in request.session:
+        song = None
+    else:
+        song = request.session['current_song_json']
+
     songs = store.get_songs()
     set_playlist_hashes(request, songs)
     context = {
@@ -59,9 +63,14 @@ def artist(request, value=None):
 
 
 def play_song(request, song_hash=None):
-    song = Song.objects.get(hash=song_hash)
-    song = set_sources(song)
-    return set_session_and_return(request, song)
+    if song_hash is not None:
+        song = Song.objects.get(hash=song_hash)
+        song = set_sources(song)
+        return set_session_and_return(request, song)
+    else:
+        print('No song selected: end of playlist')
+        request.session['current_song_json'] = None
+        return HttpResponse('')
 
 
 def next_song(request):
