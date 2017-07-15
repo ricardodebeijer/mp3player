@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from player import infogather, store
 from player.models import Artist, Song
-from player.utils import set_sources, set_session_and_return, set_playlist_hashes, get_next_song_hash, \
+from player.utils import set_session_and_return, set_playlist_hashes, get_next_song_hash, \
     get_previous_song_hash
 
 
@@ -65,7 +65,6 @@ def artist(request, value=None):
 def play_song(request, song_hash=None):
     if song_hash is not None:
         song = Song.objects.get(hash=song_hash)
-        song = set_sources(song)
         return set_session_and_return(request, song)
     else:
         print('No song selected: end of playlist')

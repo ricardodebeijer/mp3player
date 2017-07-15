@@ -12,14 +12,6 @@ def create_hash(name):
     return hashed
 
 
-def set_sources(song):
-    # sources of mp3 and jpg
-    path = '/' + settings.MEDIA_URL + song.artist.hash + '/' + song.hash
-    song.source_mp3 = path + '.mp3'
-    song.source_jpg = path + '.jpg'
-    return song
-
-
 def set_session_and_return(request, song):
     print('Selected song: ' + song.title)
     request.session['current_song_json'] = {
