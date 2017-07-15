@@ -1,0 +1,16 @@
+{% extends 'template.html' %}
+{% block content %}
+    <div class="container">
+        <div class="col-xs-12">
+            Artist: <b>{{ artist.name }}</b>
+            Songs:
+            <ul>
+                {% for song in songs %}
+                    <li>
+                        <p id="btn{{ song.hash }}" class="glyphicon glyphicon-unchecked songitem"></p><b>{{ song.title }}</b>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -15,9 +15,7 @@ class MyLogger(object):
 
 def download(url, artist, title):
     ydl_opts = {
-        # 'keepvideo': True,
         'no-mtime': True,
-        # 'format': 'bestaudio/best',
         'writethumbnail': True,
         'outtmpl': 'music/' + artist + '/' + title + '.%(ext)s',
         'postprocessors': [{

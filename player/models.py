@@ -79,12 +79,13 @@ class Artist(models.Model):
 class Song(models.Model):
     hash = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
-    source = models.CharField(max_length=1024)
+    source_jpg = models.CharField(max_length=1024, null=True)
+    source_mp3 = models.CharField(max_length=1024, null=True)
     artist = models.ForeignKey(Artist, related_name='songs')
     objects = SongManager()
 
     def __str__(self):
-        return self.title
+        return self.title + ', source_mp3: ' + self.source_mp3 + ', artist: ' + self.artist.name
 
 
 class Account(models.Model):
