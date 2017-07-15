@@ -1,11 +1,20 @@
+from django.http import HttpResponse
 from django.shortcuts import render
+
 from player import infogather, store
+from player.models import Artist, Song
+from player.utils import set_sources, set_session_and_return, set_playlist_hashes, get_next_song_hash, \
+    get_previous_song_hash
 
 
-def index(request, value=None):
+def index(request, message=None):
+    song = request.session['current_song_json']
+    songs = store.get_songs()
+    set_playlist_hashes(request, songs)
     context = {
-        'songs': store.get_songs(),
-        'message': value
+        'songs': songs,
+        'current_song': song,
+        'message': message,
     }
     return render(request, 'index.html', context)
 
@@ -40,15 +49,26 @@ def submit_info(request, value=None):
     return index(request, 'Download in progess')
 
 
-def songs(request, value=None):
+def artist(request, value=None):
+    artist = Artist.objects.get(hash=value)
     context = {
-        'songs': 'multiple songs'
+        'artist': artist,
+        'songs': artist.songs.all()
     }
-    return render(request, 'songs.html', context)
+    return render(request, 'artist.html', context)
 
 
-def song(request, value=None):
-    context = {
-        'song': '1 song'
-    }
-    return render(request, 'song.html', context)
+def play_song(request, song_hash=None):
+    song = Song.objects.get(hash=song_hash)
+    song = set_sources(song)
+    return set_session_and_return(request, song)
+
+
+def next_song(request):
+    next_song_hash = get_next_song_hash(request)
+    return play_song(request, next_song_hash)
+
+
+def previous_song(request):
+    previous_song_hash = get_previous_song_hash(request)
+    return play_song(request, previous_song_hash)

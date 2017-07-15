@@ -1,5 +1,6 @@
 import threading
 import os
+from operator import attrgetter
 from os import listdir
 from django.conf import settings
 
@@ -29,10 +30,11 @@ def get_songs():
                 hashwithoutmp3 = s.split('.mp3')[0]
                 song.hash = hashwithoutmp3
                 song.artist = artist
-                song.title = Song.objects.get(hash=hashwithoutmp3)
-                song.source = a + '/' + s
+                song.title = Song.objects.get(hash=hashwithoutmp3).title
+                song.source_mp3 = a + '/' + s
 
                 store.append(song)
+    sorted(store, key=attrgetter('artist.name'))
     return store
 
 
