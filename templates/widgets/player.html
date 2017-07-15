@@ -6,21 +6,34 @@
         <p id="btnpause" class="glyphicon glyphicon-pause player-button" style="display: none"></p>
         <p id="btnforward" class="glyphicon glyphicon-step-forward player-button"></p>
     </div>
-    <div class="col-xs-12 progress-bar-container">
-        <p id="current-time" class="">0:00</p>
-        <div class="progress-bar__bg">
-            <div id="bar" class="progress-bar__fg" style="width: 0;"></div>
-        </div>
-        <p id="duration-time" class="">0:00</p>
-    </div>
-    <div class="col-xs-12">
-        <input id="vol-control"
-               type="range"
-               min="0" max="100"
-               step="1"
-        />
-        <label id="volume-amount">50</label>
-    </div>
+    <div class="progress-bar-container">
+        <input type="range"
+           id="seek"
+           value="0"
+           max=""
+           oninput="alterTime(this.value)"
+           onchange="alterTime(this.value)"/>
+          <div class="timestamp">
+              <span id="current-time" class="">0:00</span>
+              <span class="">/</span>
+              <span id="duration-time" class="">0:00</span>
+          </div>
+    
+    <input id="vol-control"
+           type="range"
+           min="0" max="100"
+           step="1"
+           oninput="SetVolume(this.value)"
+           onchange="SetVolume(this.value)"
+            />
+    <label id="volume-amount">50</label>
+
+    <input id="song_location" style="width: 100%; color: black;"
+           value="" type="hidden">
+
+    <p class="glyphicon glyphicon-step-forward player-button" onclick=next_action()></p>
+</div>
+  
     <div class="col-xs-12">
         <b id="title-name">{{ song.title }}</b>
         <a id="artist-name" href="/player/artist/{{ song.artist_hash }}">{{ song.artist_name }}</a>
