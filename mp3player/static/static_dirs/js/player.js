@@ -27,6 +27,14 @@ function checkreloaded() {
 
 }
 
+function alterTime(val) {
+    var player = document.getElementById('audioplayer');
+    console.log('Current ' + player.currentTime);
+    console.log('new proposed val ' + val);
+    player.currentTime = val;
+    console.log('After ' + player.currentTime);
+}
+
 function setcookieandreload() {
     sessionStorage.setItem("is_reloaded", 1);
     location.reload();
@@ -112,6 +120,9 @@ $(document).ready(function () {
             $('#current-time').text(tominutes(this.currentTime));
             var percentage = this.currentTime / (this.duration / 100);
             $("#bar").width(percentage + '%');
+
+            $("#seek").attr("max", this.duration);
+            $('#seek').val(this.currentTime);
         })
         .on('durationchange', function () {
             $('#duration-time').text(tominutes(this.duration));
