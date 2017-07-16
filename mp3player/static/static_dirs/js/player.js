@@ -38,12 +38,16 @@ function seekinsong(difference) {
 function setplaylistscroll() {
     var passes = sessionStorage.getItem("is_resized");
     if (passes == 1) {
-        var position = $('.active-song-item').first().position().top;
-        var offset = $('.playlist_child').height();
-        var top = offset / 5;
-        var newpos = position - top;
-        $('.playlist_child').first().scrollTop(newpos);
-        sessionStorage.setItem("is_resized", passes++);
+        var ulitem = $('.active-song-item');
+        if (!ulitem) {
+            var position = ulitem.position().top;
+            var playlist = $('.playlist_child');
+            var offset = playlist.height();
+            var top = offset / 5;
+            var newpos = position - top;
+            playlist.scrollTop(newpos);
+            sessionStorage.setItem("is_resized", passes++);
+        }
     } else {
         console.log('pass: ' + passes);
     }
@@ -179,7 +183,7 @@ $(document).ready(function () {
         });
 
     $(window).on("resize", function () {
-        if ($(window).width() >= 768) {
+        if ($(window).width() >= 1000) {
             $("#partial-playlist").insertBefore($("#partial-player"));
         } else {
             $("#partial-player").insertBefore($("#partial-playlist"));
