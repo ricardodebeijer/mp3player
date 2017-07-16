@@ -15,6 +15,33 @@ function setvolume(value) {
     $('#volume-amount').text(value);
 }
 
+function setplaylistheight() {
+    var height = $('#cover-art').height();
+    $('#playlist-scroll').height(height);
+}
+
+function seekinsong(difference) {
+    var newtime;
+    var current = document.getElementById('audioplayer').currentTime;
+   // console.log(current);
+    if (difference > 0) {
+        newtime = current + difference / 100;
+    } else {
+        newtime = current - difference / 100;
+    }
+    // console.log(newtime);
+    alterTime(newtime);
+
+    $('#seek').val(newtime * 100);
+}
+
+function setplaylistscroll() {
+    var position = $('.active-song-item').first().position().top;
+    var offset = $('.playlist_child').height();
+    var top = offset / 5;
+    $('.playlist_child').first().scrollTop(position - top);
+}
+
 function setuservolume() {
     var volume = localStorage.getItem("user_volume");
     volume = parseInt(volume);
@@ -58,34 +85,25 @@ function pause_song() {
     $("#btnpause").hide();
 }
 
-function select_song(hash) {
+function callurlandrefresh(url) {
     $.ajax({
         type: "GET",
-        url: "/player/play/" + hash,
+        url: /player/ + url,
         success: function (succes) {
             setcookieandreload();
         }
     });
+}
+function select_song(hash) {
+    callurlandrefresh("play/" + hash)
 }
 
 function next_song() {
-    $.ajax({
-        type: "GET",
-        url: "/player/next",
-        success: function (succes) {
-            setcookieandreload();
-        }
-    });
+    callurlandrefresh("next");
 }
 
 function previous_song() {
-    $.ajax({
-        type: "GET",
-        url: "/player/previous",
-        success: function (succes) {
-            setcookieandreload();
-        }
-    });
+    callurlandrefresh("previous");
 }
 
 $(document).ready(function () {
@@ -111,6 +129,14 @@ $(document).ready(function () {
 
     $('#btnforward').click(function (event) {
         next_song();
+    });
+
+    $('#btn10sb').click(function (event) {
+        seekinsong(-10)
+    });
+
+    $('#btn10sf').click(function (event) {
+        seekinsong(10)
     });
 
     $('#vol-control')
@@ -147,4 +173,6 @@ $(document).ready(function () {
 
     checkreloaded();
     setuservolume();
+    setplaylistheight();
+    setplaylistscroll();
 });

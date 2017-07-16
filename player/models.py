@@ -92,7 +92,7 @@ class Song(models.Model):
         return '/' + settings.MEDIA_URL + self.artist.hash + '/' + self.hash + '.mp3'
 
     def __str__(self):
-        return self.title + ', source_mp3: ' + self.source_mp3 + ', artist: ' + self.artist.name
+        return self.artist.name + ' - ' + self.title
 
 
 class Account(models.Model):

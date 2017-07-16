@@ -1,0 +1,31 @@
+ul {
+    list-style-type: none;
+}
+
+.playlist_parent {
+
+}
+
+.playlist_child {
+    overflow-y: scroll;
+}
+
+.playlist-container {
+    border: 1px solid transparent;
+    border-radius: 7px;
+    border-color: #639751;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 7px;
+    border-bottom-width: 7px;
+}
+
+::-webkit-scrollbar {
+    width: 0; /* remove scrollbar space */
+    background: transparent; /* optional: just make scrollbar invisible */
+}
+
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
