@@ -23,23 +23,30 @@ function setplaylistheight() {
 function seekinsong(difference) {
     var newtime;
     var current = document.getElementById('audioplayer').currentTime;
-   // console.log(current);
+
     if (difference > 0) {
         newtime = current + difference / 100;
     } else {
         newtime = current - difference / 100;
     }
-    // console.log(newtime);
+
     alterTime(newtime);
 
     $('#seek').val(newtime * 100);
 }
 
 function setplaylistscroll() {
-    var position = $('.active-song-item').first().position().top;
-    var offset = $('.playlist_child').height();
-    var top = offset / 5;
-    $('.playlist_child').first().scrollTop(position - top);
+    var passes = sessionStorage.getItem("is_resized");
+    if (passes == 1) {
+        var position = $('.active-song-item').first().position().top;
+        var offset = $('.playlist_child').height();
+        var top = offset / 5;
+        var newpos = position - top;
+        $('.playlist_child').first().scrollTop(newpos);
+        sessionStorage.setItem("is_resized", passes++);
+    } else {
+        console.log('pass: ' + passes);
+    }
 }
 
 function setuservolume() {
@@ -171,8 +178,18 @@ $(document).ready(function () {
             next_song();
         });
 
+    $(window).on("resize", function () {
+        if ($(window).width() >= 768) {
+            $("#partial-playlist").insertBefore($("#partial-player"));
+        } else {
+            $("#partial-player").insertBefore($("#partial-playlist"));
+        }
+        sessionStorage.setItem("is_resized", 1)
+        setplaylistheight();
+        setplaylistscroll();
+    }).resize();
+
     checkreloaded();
     setuservolume();
-    setplaylistheight();
-    setplaylistscroll();
 });
+
