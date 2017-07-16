@@ -169,3 +169,6 @@ db.sqlite3
 db.cnf
 # Do not track the local settings file
 /player/settings/local.py
+
+# Do not track minimized css and js files
+/mp3player/static/static_root/*
