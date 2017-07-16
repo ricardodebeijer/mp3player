@@ -1,9 +1,5 @@
-.controls {
-
-}
-
-.active-song{
-     color: #639751;
+.active-song {
+    color: #639751;
 }
 
 .player-button {
@@ -13,5 +9,9 @@
 
 .player-button:hover {
     color: #639751;
+}
+
+#title-name,#artist-name{
+    font-size: 1.5em;
 }
 
