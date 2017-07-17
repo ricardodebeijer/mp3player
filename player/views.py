@@ -92,5 +92,5 @@ def extension_request(request):
     artist = request.POST.get('artist')
     title = request.POST.get('title')
     print('Request from extension: ' + artist + ' - ' + title + ' (' + url + ')')
-   # store.add_item(url, artist, title)
+    store.add_item(url, artist, title)
     return HttpResponse('')

@@ -1,17 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-    $('#btnback').click(function (event) {
+    $('#btnpost').click(function (event) {
         postdata();
     });
 
-    chrome.tabs.getSelected(null, function (tab) {
-        filldata(tab);
+    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (arrayOfTabs) {
+        var activeTab = arrayOfTabs[0];
+        console.log(activeTab);
+        filldata(activeTab);
     });
 
 }, false);
 
 
 function filldata(tab) {
-    console.log(tab);
+
     var tabtitle = tab.title;
     var sepindex = tabtitle.indexOf('-');
 
@@ -33,8 +35,13 @@ function filldata(tab) {
 }
 
 function postdata() {
-    $("#songform").ajaxSubmit({
-        success: function () {
+    console.log('submitting');
+    var url = "http://localhost:8000/player/extension/";
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: $("#songform").serialize(), // serializes the form's elements.
+        success: function (data) {
             console.log('form submitted.');
             $('#labelsuccess').show();
         }

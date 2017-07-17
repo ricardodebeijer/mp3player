@@ -39,7 +39,7 @@ function setplaylistscroll() {
     var passes = sessionStorage.getItem("is_resized");
     if (passes == 1) {
         var ulitem = $('.active-song-item');
-        if (!ulitem) {
+        if (ulitem) {
             var position = ulitem.position().top;
             var playlist = $('.playlist_child');
             var offset = playlist.height();
