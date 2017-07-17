@@ -93,10 +93,11 @@ def create_playlist(request, Value=None):
         return HttpResponseRedirect('/player/')
 
 def playlists(request, message=None):
-
+    songs = store.get_songs()
     playlist = store.get_playlists()
     context = {
         'playlists': playlist,
+        'songs': songs,
         'message': message,
     }
     return render(request, 'playlists.html', context)

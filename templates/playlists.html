@@ -2,6 +2,8 @@
 {% block content %}
     {% include 'widgets/playlist.html' with playlists=playlists %}
 
+    {% include 'widgets/songlist.html' with songs=songs %}
+
     <div class="col-xs-12">
         {% if message %}
             {{ message }}
