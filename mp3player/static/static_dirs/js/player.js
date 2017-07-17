@@ -10,21 +10,65 @@ function tominutes(time) {
 
 function setvolume(value) {
     var volume = value / 100;
+    localStorage.setItem("user_volume", value);
     $('#audioplayer').prop('volume', volume);
     $('#volume-amount').text(value);
 }
 
-function checkreloaded() {
-    var doplay = sessionStorage.getItem("is_reloaded");
-    console.log(doplay);
-    if (doplay == 1) {
-        console.info("Cookie says play");
-        play_song();
-        sessionStorage.setItem("is_reloaded", 0);
+function setplaylistheight() {
+    var height = $('#cover-art').height();
+    $('#playlist-scroll').height(height);
+}
+
+function seekinsong(difference) {
+    var newtime;
+    var current = document.getElementById('audioplayer').currentTime;
+
+    if (difference > 0) {
+        newtime = current + difference / 100;
     } else {
-        console.info("Cookie says don't play");
+        newtime = current - difference / 100;
     }
 
+    alterTime(newtime);
+
+    $('#seek').val(newtime * 100);
+}
+
+function setplaylistscroll() {
+    var passes = sessionStorage.getItem("is_resized");
+    if (passes == 1) {
+        var ulitem = $('.active-song-item');
+        if (ulitem) {
+            var position = ulitem.position().top;
+            var playlist = $('.playlist_child');
+            var offset = playlist.height();
+            var top = offset / 5;
+            var newpos = position - top;
+            playlist.scrollTop(newpos);
+            sessionStorage.setItem("is_resized", passes++);
+        }
+    } else {
+        console.log('pass: ' + passes);
+    }
+}
+
+function setuservolume() {
+    var volume = localStorage.getItem("user_volume");
+    volume = parseInt(volume);
+    if (!volume) {
+        volume = 50;
+    }
+
+    $('#vol-control').val(volume);
+    setvolume(volume);
+}
+
+function checkreloaded() {
+    if (sessionStorage.getItem("is_reloaded") == 1) {
+        play_song();
+        sessionStorage.setItem("is_reloaded", 0);
+    }
 }
 
 function alterTime(val) {
@@ -52,34 +96,25 @@ function pause_song() {
     $("#btnpause").hide();
 }
 
-function select_song(hash) {
+function callurlandrefresh(url) {
     $.ajax({
         type: "GET",
-        url: "/player/play/" + hash,
+        url: /player/ + url,
         success: function (succes) {
             setcookieandreload();
         }
     });
+}
+function select_song(hash) {
+    callurlandrefresh("play/" + hash)
 }
 
 function next_song() {
-    $.ajax({
-        type: "GET",
-        url: "/player/next",
-        success: function (succes) {
-            setcookieandreload();
-        }
-    });
+    callurlandrefresh("next");
 }
 
 function previous_song() {
-    $.ajax({
-        type: "GET",
-        url: "/player/previous",
-        success: function (succes) {
-            setcookieandreload();
-        }
-    });
+    callurlandrefresh("previous");
 }
 
 $(document).ready(function () {
@@ -107,12 +142,28 @@ $(document).ready(function () {
         next_song();
     });
 
+    $('#btn10sb').click(function (event) {
+        seekinsong(-10)
+    });
+
+    $('#btn10sf').click(function (event) {
+        seekinsong(10)
+    });
+
     $('#vol-control')
         .on('input', function (event) {
             setvolume(this.value);
         })
         .on('change', function (event) {
             setvolume(this.value);
+        });
+
+    $('#seek')
+        .on('input', function (event) {
+            alterTime(this.value);
+        })
+        .on('change', function (event) {
+            alterTime(this.value);
         });
 
     $('#audioplayer')
@@ -131,5 +182,18 @@ $(document).ready(function () {
             next_song();
         });
 
-    checkreloaded()
+    $(window).on("resize", function () {
+        if ($(window).width() >= 1000) {
+            $("#partial-playlist").insertBefore($("#partial-player"));
+        } else {
+            $("#partial-player").insertBefore($("#partial-playlist"));
+        }
+        sessionStorage.setItem("is_resized", 1)
+        setplaylistheight();
+        setplaylistscroll();
+    }).resize();
+
+    checkreloaded();
+    setuservolume();
 });
+

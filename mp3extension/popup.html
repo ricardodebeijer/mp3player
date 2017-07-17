@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>mp3player extension</title>
+
+    <!-- Scripts -->
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/popup.js"></script>
+
+    <!-- Cascading Style Sheets -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/custom.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navcolor" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" target="_blank" href="http://localhost:8000/player">mp3player</a>
+    </div>
+</nav>
+
+<div class="container">
+    <form id="songform" class="form-horizontal">
+
+        <div class="form-group ">
+            <label for="url" class="col-xs-2 control-label">URL:</label>
+            <div class="col-xs-10">
+                <input class="form-control" name="url" id="url">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="artist" class="col-xs-2 control-label">Artist:</label>
+            <div class="col-xs-10">
+                <input class="form-control" name="artist" id="artist">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="title" class="col-xs-2 control-label">Title:</label>
+            <div class="col-xs-10">
+                <input class="form-control" name="title" id="title">
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <button class="btn btn-primary btn-player" id="btnpost">Post to mp3player</button>
+    </div>
+
+    <div>
+        <label id="labelsuccess" style="display: none;">Song posted! <a target="_blank" href="http://localhost:8000/player">Go to player</a></label>
+    </div>
+</div>
+</body>
+</html>

@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^play/(\w+)/$', views.play_song, name='play_song'),
     url(r'^next/$', views.next_song, name='next_song'),
     url(r'^previous/$', views.previous_song, name='previous_song'),
+    url(r'^extension/$', views.extension_request, name='extension_request'),
 ]

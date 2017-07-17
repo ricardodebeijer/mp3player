@@ -1,13 +1,10 @@
 {% extends 'template.html' %}
 {% block content %}
-
-    {% include 'widgets/coverart.html' with coverart_src=current_song.source_jpg %}
+    {% include 'widgets/coverart.html' with coverart_src=cover_art_jpg %}
 
     {% include 'widgets/playlist.html' with songs=songs %}
 
     {% include 'widgets/player.html' with song=current_song %}
-
-
 
     <div class="col-xs-12">
         {% if message %}

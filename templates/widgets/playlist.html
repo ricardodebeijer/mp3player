@@ -1,16 +1,23 @@
-<div class="col-lg-6 col-xs-12 controls">
-    <ul>
-        {% for song in songs %}
-            <li>
-                <p id="btn{{ song.hash }}" class="glyphicon songitem
+<div id="partial-playlist" class="col-xs-12 col-lg-6 controls playlist_parent">
+    <div id="playlist-scroll" class="playlist_child">
+        <div class="playlist-container">
+            <ul>
+                {% for song in songs %}
+                    <li class="
+                        {% if current_song.hash == song.hash %}
+                           active-song-item
+                        {% endif %}">
+                        <p id="btn{{ song.hash }}" class="glyphicon songitem
                         {% if current_song.hash == song.hash %}
                            glyphicon-expand
                            active-song
                          {% else %}
                          glyphicon-unchecked
                         {% endif %}"></p>
-                <b>{{ song.title }}</b> <a href="{% url 'artist' song.artist.hash %}">{{ song.artist }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+                        <b>{{ song.title }}</b> <a href="{% url 'artist' song.artist.hash %}">{{ song.artist }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </div>

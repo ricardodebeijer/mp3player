@@ -1,10 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from player import infogather, store
 from player.models import Artist, Song
-from player.utils import set_sources, set_session_and_return, set_playlist_hashes, get_next_song_hash, \
-    get_previous_song_hash
+from player.utils import set_session_and_return, set_playlist_hashes, get_next_song_hash, \
+    get_previous_song_hash, set_cover_art
 
 
 def index(request, message=None):
@@ -15,9 +16,12 @@ def index(request, message=None):
 
     songs = store.get_songs()
     set_playlist_hashes(request, songs)
+    cover_art_jpg = set_cover_art(song)
+
     context = {
         'songs': songs,
         'current_song': song,
+        'cover_art_jpg': cover_art_jpg,
         'message': message,
     }
     return render(request, 'index.html', context)
@@ -65,7 +69,6 @@ def artist(request, value=None):
 def play_song(request, song_hash=None):
     if song_hash is not None:
         song = Song.objects.get(hash=song_hash)
-        song = set_sources(song)
         return set_session_and_return(request, song)
     else:
         print('No song selected: end of playlist')
@@ -81,3 +84,13 @@ def next_song(request):
 def previous_song(request):
     previous_song_hash = get_previous_song_hash(request)
     return play_song(request, previous_song_hash)
+
+
+@csrf_exempt
+def extension_request(request):
+    url = request.POST.get('url')
+    artist = request.POST.get('artist')
+    title = request.POST.get('title')
+    print('Request from extension: ' + artist + ' - ' + title + ' (' + url + ')')
+    store.add_item(url, artist, title)
+    return HttpResponse('')
