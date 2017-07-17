@@ -2,19 +2,10 @@
     <div id="playlist-scroll" class="playlist_child">
         <div class="playlist-container">
             <ul>
-                {% for song in songs %}
-                    <li class="
-                        {% if current_song.hash == song.hash %}
-                           active-song-item
-                        {% endif %}">
-                        <p id="btn{{ song.hash }}" class="glyphicon songitem
-                        {% if current_song.hash == song.hash %}
-                           glyphicon-expand
-                           active-song
-                         {% else %}
-                         glyphicon-unchecked
-                        {% endif %}"></p>
-                        <b>{{ song.title }}</b> <a href="{% url 'artist' song.artist.hash %}">{{ song.artist }}</a>
+                {% for playlist in playlists %}
+                    <li class="">
+                        <p id="btn{{ playlist.hash }}" class="glyphicon songitem"></p>
+                        <b>{{ playlist.title }}</b>
                     </li>
                 {% endfor %}
             </ul>

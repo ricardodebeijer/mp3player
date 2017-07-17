@@ -11,5 +11,8 @@ urlpatterns = [
     url(r'^play/(\w+)/$', views.play_song, name='play_song'),
     url(r'^next/$', views.next_song, name='next_song'),
     url(r'^previous/$', views.previous_song, name='previous_song'),
+    url(r'^createplaylist/$', views.create_playlist, name='create_playlist'),
+    url(r'^playlists/$', views.playlists, name='playlists'),
+    url(r'^playlist/(\w+)/$', views.play_playlists, name='play_playlist'),
     url(r'^extension/$', views.extension_request, name='extension_request'),
 ]
