@@ -10,31 +10,11 @@ from player.utils import create_hash
 
 
 def get_songs():
-    global artists
     path = settings.MEDIA_URL
-    try:
-        artists = listdir(path)
-    except FileNotFoundError:
+    if not os.path.exists(path) or not os.path.isdir(path):
         os.mkdir(path)
-        artists = listdir(path)
 
-    store = []
-    for a in artists:
-        artist = Artist()
-        artist.hash = a
-        artist.name = Artist.objects.get(hash=a).name
-        songs = listdir(path + a + '/')
-        for s in songs:
-            if s.endswith('.mp3'):
-                song = Song()
-                hashwithoutmp3 = s.split('.mp3')[0]
-                song.hash = hashwithoutmp3
-                song.artist = artist
-                song.title = Song.objects.get(hash=hashwithoutmp3).title
-                song.source_mp3 = a + '/' + s
-
-                store.append(song)
-    sorted(store, key=attrgetter('artist.name'))
+    store = Song.objects.all().order_by('artist__name')
     return store
 
 

@@ -1,40 +1,29 @@
-<div class="col-lg-12 col-xs-12 controls">
+<div id="partial-player" class="col-xs-12 col-lg-12 "
+     title="artist: {{ song.artist_hash }} &#013;&#010;song: {{ song.hash }}">
+    <div class="col-xs-12">
+        <b id="title-name">{{ song.title }}</b>
+        <a id="artist-name" href="/player/artist/{{ song.artist_hash }}">{{ song.artist_name }}</a>
+    </div>
+
     <div class="col-xs-12">
         <audio id='audioplayer' preload='auto' src="{{ song.source_mp3 }}"></audio>
         <p id="btnback" class="glyphicon glyphicon-step-backward player-button"></p>
+        <p id="btn10sb" class="glyphicon glyphicon-backward player-button"></p>
         <p id="btnplay" class="glyphicon glyphicon-play player-button"></p>
         <p id="btnpause" class="glyphicon glyphicon-pause player-button" style="display: none"></p>
+        <p id="btn10sf" class="glyphicon glyphicon-forward player-button"></p>
         <p id="btnforward" class="glyphicon glyphicon-step-forward player-button"></p>
     </div>
+
     <div class="col-xs-12 progress-bar-container">
-        <input type="range"
-               id="seek"
-               value="0"
-               max=""
-               oninput="alterTime(this.value)"
-               onchange="alterTime(this.value)"/>
+        <input type="range" id="seek" value="0" max=""/>
         <div class="timestamp">
             <span id="current-time" class="">0:00</span>
             <span class="">/</span>
             <span id="duration-time" class="">0:00</span>
         </div>
 
-        <input id="vol-control"
-               type="range"
-               min="0" max="100"
-               step="1"
-               oninput="SetVolume(this.value)"
-               onchange="SetVolume(this.value)"
-        />
-        <label id="volume-amount">50</label>
-
-        <input id="song_location" style="width: 100%; color: black;"
-               value="" type="hidden">
-
-    </div>
-
-    <div class="col-xs-12">
-        <b id="title-name">{{ song.title }}</b>
-        <a id="artist-name" href="/player/artist/{{ song.artist_hash }}">{{ song.artist_name }}</a>
+        <input id="vol-control" type="range" min="0" max="100" step="1"/>
+        <label id="volume-amount"></label>
     </div>
 </div>

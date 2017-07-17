@@ -12,16 +12,8 @@ def create_hash(name):
     return hashed
 
 
-def set_sources(song):
-    # sources of mp3 and jpg
-    path = '/' + settings.MEDIA_URL + song.artist.hash + '/' + song.hash
-    song.source_mp3 = path + '.mp3'
-    song.source_jpg = path + '.jpg'
-    return song
-
-
 def set_session_and_return(request, song):
-    print('Selected song: ' + song.title)
+    print('Selected song: ' + str(song))
     request.session['current_song_json'] = {
         'hash': song.hash,
         'title': song.title,
@@ -50,13 +42,13 @@ def get_index_current_song(request):
     return current_index
 
 
-def get_hash_from_index(request, index):
+def get_hash_from_index(request, index, current_index):
     playlist_hashes = request.session['playlist']
-
     try:
         next_song_hash = playlist_hashes[index]
     except IndexError:
         print('index out of range')
+        # next_song_hash = playlist_hashes[current_index]
         next_song_hash = None
     return next_song_hash
 
@@ -64,17 +56,24 @@ def get_hash_from_index(request, index):
 def get_next_song_hash(request):
     current_index = get_index_current_song(request)
     next_index = current_index + 1  # check end bound...
-    next_song_hash = get_hash_from_index(request, next_index)
+    next_song_hash = get_hash_from_index(request, next_index, current_index)
 
-    if next_song_hash is not None:
-        print('next song will be: ' + next_song_hash)
+    # if next_song_hash is not None:
+    # print('next song will be: ' + next_song_hash)
     return next_song_hash
 
 
 def get_previous_song_hash(request):
     current_index = get_index_current_song(request)
     previous_index = current_index - 1  # check start bound...
-    previous_index_song_hash = get_hash_from_index(request, previous_index)
-    if previous_index_song_hash is not None:
-        print('previous song was: ' + previous_index_song_hash)
+    previous_index_song_hash = get_hash_from_index(request, previous_index, current_index)
+    # if previous_index_song_hash is not None:
+    # print('previous song was: ' + previous_index_song_hash)
     return previous_index_song_hash
+
+
+def set_cover_art(song):
+    if song is None:
+        return '/static/icons/favicon.png'
+    else:
+        return song['source_jpg']

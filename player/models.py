@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from player.exceptions import InvalidModelInstanceException
@@ -79,13 +80,19 @@ class Artist(models.Model):
 class Song(models.Model):
     hash = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
-    source_jpg = models.CharField(max_length=1024, null=True)
-    source_mp3 = models.CharField(max_length=1024, null=True)
     artist = models.ForeignKey(Artist, related_name='songs')
     objects = SongManager()
 
+    @property
+    def source_jpg(self):
+        return '/' + settings.MEDIA_URL + self.artist.hash + '/' + self.hash + '.jpg'
+
+    @property
+    def source_mp3(self):
+        return '/' + settings.MEDIA_URL + self.artist.hash + '/' + self.hash + '.mp3'
+
     def __str__(self):
-        return self.title + ', source_mp3: ' + self.source_mp3 + ', artist: ' + self.artist.name
+        return self.artist.name + ' - ' + self.title
 
 
 class Account(models.Model):
