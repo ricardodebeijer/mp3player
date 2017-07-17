@@ -38,15 +38,17 @@ function seekinsong(difference) {
 function setplaylistscroll() {
     var passes = sessionStorage.getItem("is_resized");
     if (passes == 1) {
-        var ulitem = $('.active-song-item');
-        if (ulitem) {
-            var position = ulitem.position().top;
+        try {
+            var position = $('.active-song-item').first().position().top;
             var playlist = $('.playlist_child');
             var offset = playlist.height();
             var top = offset / 5;
             var newpos = position - top;
             playlist.scrollTop(newpos);
             sessionStorage.setItem("is_resized", passes++);
+        }
+        catch (err) {
+            console.log('error: no active song item');
         }
     } else {
         console.log('pass: ' + passes);

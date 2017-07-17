@@ -133,3 +133,7 @@ LOGGING_CONFIG = None
 MEDIA_URL = 'music/'
 
 #MEDIA_ROOT will be in separate file
+
+#User auth
+LOGIN_URL = '/player/login/'
+
