@@ -3,6 +3,7 @@ import os
 from operator import attrgetter
 from os import listdir
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from player import downloader
 from player.models import Artist, Song, Playlist, Account
@@ -18,8 +19,8 @@ def get_songs():
     return store
 
 
-def get_songs_from_playlist(playlist_name):
-    playlist = Playlist.objects.get(title=playlist_name)
+def get_songs_from_playlist(playlist_hash):
+    playlist = Playlist.objects.get(hash=playlist_hash)
     store = playlist.songs.all()
     return store
 
@@ -58,10 +59,10 @@ def create_playlist(playlist_name):
     print('Creating playlist: ' + playlist_name)
     #get current user and create a playlist object.
     playlist = Playlist()
-    playlist.hash = create_hash(playlist_name)
+    # TODO replace with actual logged in user
+    playlist.owner = User.objects.get(username='nekkyou')
+    playlist.hash = create_hash(playlist.owner.username + playlist_name)
     playlist.title = playlist_name
-    #TODO replace with actual logged in user
-    playlist.owner = Account.objects.get(username='testgebruiker01')
 
     createdplaylist = Playlist.objects.add(playlist)
 

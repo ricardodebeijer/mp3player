@@ -5,7 +5,7 @@
                 {% for playlist in playlists %}
                     <li class="">
                         <p id="btn{{ playlist.hash }}" class="glyphicon songitem"></p>
-                        <a href="{% url 'play_playlist' playlist.title %}">{{ playlist.title }}</a>
+                        <a href="{% url 'play_playlist' playlist.hash %}">{{ playlist.title }}</a>
                     </li>
                 {% endfor %}
             </ul>

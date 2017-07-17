@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from player.exceptions import InvalidModelInstanceException
@@ -109,7 +110,7 @@ class Account(models.Model):
 class Playlist(models.Model):
     hash = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
-    owner = models.ForeignKey(Account, related_name='playlists')
+    owner = models.ForeignKey(User, related_name='playlists')
     songs = models.ManyToManyField(Song, blank=True)
     objects = PlaylistManager()
 
