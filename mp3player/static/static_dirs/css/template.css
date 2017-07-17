@@ -38,16 +38,14 @@ body {
     text-align: center;
 }
 
-.navcolor {
+.navcolor, .btn-player {
     background-color: rgba(12, 12, 12, 0.83);
     color: #87939a;
     border-color: rgba(12, 12, 12, 0.83);
 }
 
-.navcolor:hover {
+.navcolor:hover, .btn-player {
+    background-color: rgba(12, 12, 12, 0.83);
+    color: #87939a;
     border-color: #639751;
-}
-
-.navbarlin > a:hover {
-    color: #639751;
 }
