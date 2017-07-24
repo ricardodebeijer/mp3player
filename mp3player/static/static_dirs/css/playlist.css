@@ -1,7 +1,6 @@
-ul {
-    list-style-type: none;
+.no-bullet-list{
+    list-style: none;
 }
-
 .playlist_parent {
 
 }

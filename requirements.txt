@@ -7,4 +7,3 @@ setuptools
 requests
 youtube-dl
 gunicorn
-whitenoise

@@ -1,17 +1,26 @@
 from django.conf.urls import url
-from . import views
+from player.views import pages, playlist, store, user, dashboard
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^addsong/$', views.add_song, name='addsong'),
-    url(r'^inputurl/$', views.input_url, name='inputurl'),
-    url(r'^submitinfo/$', views.submit_info, name='submitinfo'),
-    url(r'^artist/(\w+)/$', views.artist, name='artist'),
-    url(r'^user/(\w+)/$', views.user, name='user'),
-    url(r'^play/(\w+)/$', views.play_song, name='play_song'),
-    url(r'^next/$', views.next_song, name='next_song'),
-    url(r'^previous/$', views.previous_song, name='previous_song'),
-    url(r'^extension/$', views.extension_request, name='extension_request'),
-    url(r'^login/$', views.login_user, name='login_user'),
-    url(r'^logout/$', views.logout_user, name='logout_user'),
+    url(r'^$', pages.index, name='index'),
+    url(r'^artist/(\w+)/$', pages.artist, name='artist'),
+    url(r'^user/(\w+)/$', pages.user, name='user'),
+
+    url(r'^addsong/$', store.add_song, name='addsong'),
+    url(r'^inputurl/$', store.input_url, name='inputurl'),
+    url(r'^submitinfo/$', store.submit_info, name='submitinfo'),
+    url(r'^extension/$', store.extension_request, name='extension_request'),
+
+    url(r'^play/(\w+)/$', playlist.play_song, name='play_song'),
+    url(r'^next/$', playlist.next_song, name='next_song'),
+    url(r'^previous/$', playlist.previous_song, name='previous_song'),
+
+    url(r'^login/$', user.login_user, name='login_user'),
+    url(r'^logout/$', user.logout_user, name='logout_user'),
+
+    url(r'^dashboard/$', dashboard.admin_index, name='dashboard_index'),
+    url(r'^artist/(\w+)/edit/$', dashboard.admin_artist, name='dashboard_artist'),
+    url(r'^song/(\w+)/edit/$', dashboard.admin_song, name='dashboard_song'),
+    url(r'^playlist/(\w+)/edit/$', dashboard.admin_playlist, name='dashboard_playlist'),
+    url(r'^user/(\w+)/edit/$', dashboard.admin_user, name='dashboard_user'),
 ]

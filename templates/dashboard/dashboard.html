@@ -1,0 +1,62 @@
+{% extends 'template.html' %}
+{% block content %}
+    <div class="container">
+        <div class="col-xs-12">
+            <h3>Admin Dashboard</h3>
+            <h4>Artists with Songs:</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Artist</th>
+                    <th>Songs</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for artist in artists %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'dashboard_artist' artist.hash %}">{{ artist.name }}</a>
+                        </td>
+                        <td>
+                            <ul>
+                                {% for song in artist.songs.all %}
+                                    <li>
+                                        <a href="{% url 'dashboard_song' song.hash %}">{{ song.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <h4>Users with Playlists:</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Playlist</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'dashboard_user' user.username %}">{{ user.username }}</a>
+                        </td>
+                        <td>
+                            <ul>
+                                {% for playlist in user.playlists.all %}
+                                    <li>
+                                        <a href="{% url 'dashboard_playlist' playlist.hash %}">{{ playlist.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
