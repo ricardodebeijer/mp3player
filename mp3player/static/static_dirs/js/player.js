@@ -53,11 +53,12 @@ function setplaylistscroll() {
                 playlist.scrollTop(newpos);
                 sessionStorage.setItem("is_resized", passes++);
             }
-            catch(err) {
+            catch (err) {
                 console.log('error: no active song item');
             }
-    } else {
-        console.log('pass: ' + passes);
+        } else {
+            console.log('pass: ' + passes);
+        }
     }
 }
 

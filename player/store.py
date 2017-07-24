@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 
 from player import downloader
-from player.models import Artist, Song, Playlist, Account
+from player.models import Artist, Song, Playlist
 from player.utils import create_hash
 
 
