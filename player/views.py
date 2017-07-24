@@ -121,6 +121,34 @@ def play_playlists(request, Value=None, message=None):
     }
     return render(request, 'index.html', context)
 
+
+def manage_playlists(request, Value=None, message=None):
+    if request.method == 'GET':
+        print(Value)
+        playlistsongs = store.get_songs_from_playlist(Value)
+        songs = store.get_songs()
+        songs = songs.exclude(id__in=playlistsongs)
+
+        context = {
+            'playlistsongs': playlistsongs,
+            'songs': songs,
+            'message': message,
+        }
+        return render(request, 'manageplaylist.html', context)
+    else:
+        print(Value)
+        newsongs = request.POST.getlist('pitems')
+        print(newsongs)
+
+        store.save_playlist(Value, newsongs)
+
+        return HttpResponseRedirect('/player/playlists/')
+
+
+def save_playlist(request, Value=None):
+    print(Value)
+
+
 @csrf_exempt
 def extension_request(request):
     url = request.POST.get('url')

@@ -1,0 +1,50 @@
+{% extends 'template.html' %}
+{% block content %}
+
+    <form name="form1" action="" method="post">
+    {% csrf_token %}
+        <div id="partial-playlist" class="col-xs-12 col-lg-6 controls playlist_parent">
+            <div id="playlist-scroll" class="playlist_child">
+                <div class="playlist-container">
+                    <select id="playlistItems" name="pitems" multiple class="form-control">
+                        {% for song in playlistsongs %}
+                            <option value="{{ song.hash }}">
+                                <b>{{ song.title }}</b>
+                                <a href="{% url 'artist' song.artist.hash %}">{{ song.artist }}</a>
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="subject-info-arrows text-center">
+          <button id="btnRight" class="btn btn-default" >></button>
+          <button id="btnLeft" value="<" class="btn btn-default"><</button>
+        </div>
+
+        <div id="partial-playlist" class="col-xs-12 col-lg-6 controls playlist_parent">
+            <div id="playlist-scroll" class="playlist_child">
+                <div class="playlist-container">
+                    <select id="allItems" multiple class="form-control">
+                        {% for song in songs %}
+                            <option value="{{ song.hash }}">
+                                <b>{{ song.title }}</b>
+                                <a href="{% url 'artist' song.artist.hash %}">{{ song.artist }}</a>
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Save">
+    </form>
+
+
+    <div class="col-xs-12">
+        {% if message %}
+            {{ message }}
+        {% endif %}
+    </div>
+{% endblock %}

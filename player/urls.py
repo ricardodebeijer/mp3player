@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^createplaylist/$', views.create_playlist, name='create_playlist'),
     url(r'^playlists/$', views.playlists, name='playlists'),
     url(r'^playlist/(\w+)/$', views.play_playlists, name='play_playlist'),
+    url(r'^playlist/(\w+)/manage$', views.manage_playlists, name='manage_playlist'),
     url(r'^extension/$', views.extension_request, name='extension_request'),
 ]

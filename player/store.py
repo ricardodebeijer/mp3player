@@ -66,3 +66,11 @@ def create_playlist(playlist_name):
 
     createdplaylist = Playlist.objects.add(playlist)
 
+
+def save_playlist(playlist_hash, songs):
+    print('Saving playlist ' + playlist_hash)
+
+    playlist = Playlist.objects.get(hash=playlist_hash)
+    playlist.songs = Song.objects.filter(hash__in=songs)
+    playlist.save()
+
