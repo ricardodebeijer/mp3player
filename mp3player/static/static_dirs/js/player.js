@@ -126,10 +126,14 @@ function previous_song() {
     callurlandrefresh("previous");
 }
 
+function select_all() {
+    console.log('Selecting them all');
+    $('#playlistItems option').prop('selected', true);
+}
+
 $(document).ready(function () {
 
     $('#btnRight').click(function (e) {
-        console.log('Clicked Btn right');
         var selectedOpts = $('#playlistItems option:selected');
         if (selectedOpts.length == 0) {
             alert("Nothing to move.");
@@ -141,7 +145,6 @@ $(document).ready(function () {
     });
 
     $('#btnLeft').click(function (e) {
-        console.log('Clicked Btn right');
         var selectedOpts = $('#allItems option:selected');
         if (selectedOpts.length == 0) {
             alert("Nothing to move.");
