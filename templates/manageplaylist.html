@@ -3,7 +3,7 @@
 
     <form name="form1" action="" method="post">
     {% csrf_token %}
-        <div id="partial-playlist" class="col-xs-12 col-lg-6 controls playlist_parent">
+        <div id="partial-playlist" class="col-xs-12 col-lg-5 controls playlist_parent">
             <div id="playlist-scroll" class="playlist_child">
                 <div class="playlist-container">
                     <select id="playlistItems" name="pitems" multiple class="form-control">
@@ -18,12 +18,12 @@
             </div>
         </div>
 
-        <div class="subject-info-arrows text-center">
+        <div class="subject-info-arrows text-center col-xs-12 col-lg-2">
           <button id="btnRight" class="btn btn-default" >></button>
           <button id="btnLeft" value="<" class="btn btn-default"><</button>
         </div>
 
-        <div id="partial-playlist" class="col-xs-12 col-lg-6 controls playlist_parent">
+        <div id="partial-playlist" class="col-xs-12 col-lg-5 controls playlist_parent">
             <div id="playlist-scroll" class="playlist_child">
                 <div class="playlist-container">
                     <select id="allItems" multiple class="form-control">
@@ -38,7 +38,14 @@
             </div>
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Save">
+        <div class="col-xs-12 col-lg-12">
+            <br />
+            <input type="submit"
+               class="btn btn-primary"
+               value="Save"
+               onclick="select_all();">
+        </div>
+
     </form>
 
 
