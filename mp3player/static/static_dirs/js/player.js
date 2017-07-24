@@ -17,7 +17,11 @@ function setvolume(value) {
 
 function setplaylistheight() {
     var height = $('#cover-art').height();
-    $('#playlist-scroll').height(height);
+    if (height > 100) {
+        $('#playlist-scroll').height(height);
+    } else {
+        $('#playlist-scroll').height(100);
+    }
 }
 
 function seekinsong(difference) {
@@ -52,7 +56,6 @@ function setplaylistscroll() {
             catch(err) {
                 console.log('error: no active song item');
             }
-        }
     } else {
         console.log('pass: ' + passes);
     }

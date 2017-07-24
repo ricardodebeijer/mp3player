@@ -1,0 +1,10 @@
+django
+futures
+lxml
+mysqlclient
+pip
+setuptools
+requests
+youtube-dl
+gunicorn
+whitenoise

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navcolor">
+<nav class="navbar navbar-inverse navcolor">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -13,9 +13,35 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="navlink"><a href="{% url 'playlists' %}">Playlist</a></li>
-                <li class="navlink"><a href="{% url 'addsong' %}">Add Song</a></li>
-                <li class="navlink"><a data-toggle="modal" data-target="#myModalNorm">Create playlist</a></li>
+                {% if request.user.is_authenticated %}
+                    <li class="navlink"><a href="{% url 'playlists' %}">Playlist</a></li>          
+                    <li>
+                        <a href="{% url 'addsong' %}">
+                            <span class="glyphicon glyphicon-play-circle"></span> Add Song
+                        </a>
+                    </li>
+                    <li class="navlink"><a data-toggle="modal" data-target="#myModalNorm">Create playlist</a></li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'user' request.user.username %}">
+                            <span class="glyphicon glyphicon-user"></span> {{ request.user.username }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout_user' %}">
+                            <span class="glyphicon glyphicon-log-out"></span> Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'login_user' %}">
+                            <span class="glyphicon glyphicon-log-in"></span> Login
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

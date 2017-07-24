@@ -1,13 +1,16 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib.auth import authenticate, login, logout
 from player import infogather, store
 from player.models import Artist, Song
 from player.utils import set_session_and_return, set_playlist_hashes, get_next_song_hash, \
     get_previous_song_hash, set_cover_art
 
 
+@login_required
 def index(request, message=None):
     if 'current_song_json' not in request.session:
         song = None
@@ -58,12 +61,20 @@ def submit_info(request, value=None):
 
 
 def artist(request, value=None):
-    artist = Artist.objects.get(hash=value)
+    artist_item = Artist.objects.get(hash=value)
     context = {
-        'artist': artist,
-        'songs': artist.songs.all()
+        'artist': artist_item,
+        'songs': artist_item.songs.all()
     }
     return render(request, 'artist.html', context)
+
+
+def user(request, value=None):
+    user_item = User.objects.get(username=value)
+    context = {
+        'user': user_item,
+    }
+    return render(request, 'user.html', context)
 
 
 def play_song(request, song_hash=None):
@@ -157,3 +168,25 @@ def extension_request(request):
     print('Request from extension: ' + artist + ' - ' + title + ' (' + url + ')')
     store.add_item(url, artist, title)
     return HttpResponse('')
+
+
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            context = {
+                'message': 'invalid login'
+            }
+        return render(request, 'login.html', context)
+    else:
+        return render(request, 'login.html')
+
+
+def logout_user(request):
+    logout(request)
+    return render(request, 'login.html')

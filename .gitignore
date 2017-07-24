@@ -162,13 +162,16 @@ fabric.properties
 # End of https://www.gitignore.io/api/intellij+all
 
 # Do not track the music
-/music/*
+music/
 # Do not track any local database
 db.sqlite3
 # Do not track the database config
 db.cnf
 # Do not track the local settings file
 /player/settings/local.py
-
+# Do not track the production settings file
+/player/settings/production.py
 # Do not track minimized css and js files
-/mp3player/static/static_root/*
+mp3player/static/static_root/
+# Do not track docker image for testing
+mp3player-image

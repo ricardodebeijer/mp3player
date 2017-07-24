@@ -18,13 +18,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pgui2uislzbmf)m8h^mzv*i44qn&ely6gwk^rn&)=hd_(lql4k'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['player.ricardodebeijer.nl', '192.168.1.5', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -40,6 +35,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -125,11 +121,13 @@ STATICFILES_DIRS = (
     os.path.join(PACKAGE_ROOT, 'mp3player', 'static', 'static_dirs'),
 )
 
-
 LOGGING_CONFIG = None
 
 # Media Location
 
 MEDIA_URL = 'music/'
 
-#MEDIA_ROOT will be in separate file
+# MEDIA_ROOT will be in separate file
+
+# User auth
+LOGIN_URL = '/player/login/'

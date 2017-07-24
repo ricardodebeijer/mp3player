@@ -52,13 +52,6 @@ class SongManager(models.Manager):
             return None
 
 
-class AccountManager(models.Manager):
-    def add(self, account):
-        account = self.create(account)
-
-        return account
-
-
 class PlaylistManager(models.Manager):
     def add(self, playlist):
         if not isinstance(playlist, Playlist):
@@ -96,15 +89,6 @@ class Song(models.Model):
 
     def __str__(self):
         return self.artist.name + ' - ' + self.title
-
-
-class Account(models.Model):
-    username = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
-    objects = ArtistManager()
-
-    def __str__(self):
-        return self.username
 
 
 class Playlist(models.Model):

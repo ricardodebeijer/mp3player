@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from . import views
 
 urlpatterns = [
@@ -8,6 +7,7 @@ urlpatterns = [
     url(r'^inputurl/$', views.input_url, name='inputurl'),
     url(r'^submitinfo/$', views.submit_info, name='submitinfo'),
     url(r'^artist/(\w+)/$', views.artist, name='artist'),
+    url(r'^user/(\w+)/$', views.user, name='user'),
     url(r'^play/(\w+)/$', views.play_song, name='play_song'),
     url(r'^next/$', views.next_song, name='next_song'),
     url(r'^previous/$', views.previous_song, name='previous_song'),
@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^playlist/(\w+)/$', views.play_playlists, name='play_playlist'),
     url(r'^playlist/(\w+)/manage$', views.manage_playlists, name='manage_playlist'),
     url(r'^extension/$', views.extension_request, name='extension_request'),
+    url(r'^login/$', views.login_user, name='login_user'),
+    url(r'^logout/$', views.logout_user, name='logout_user'),
 ]
