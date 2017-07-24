@@ -42,18 +42,20 @@ function seekinsong(difference) {
 function setplaylistscroll() {
     var passes = sessionStorage.getItem("is_resized");
     if (passes == 1) {
-        try {
-            var position = $('.active-song-item').first().position().top;
-            var playlist = $('.playlist_child');
-            var offset = playlist.height();
-            var top = offset / 5;
-            var newpos = position - top;
-            playlist.scrollTop(newpos);
-            sessionStorage.setItem("is_resized", passes++);
-        }
-        catch (err) {
-            console.log('error: no active song item');
-        }
+        var ulitem = $('.active-song-item');
+        if (ulitem) {
+            try {
+                var position = ulitem.position().top;
+                var playlist = $('.playlist_child');
+                var offset = playlist.height();
+                var top = offset / 5;
+                var newpos = position - top;
+                playlist.scrollTop(newpos);
+                sessionStorage.setItem("is_resized", passes++);
+            }
+            catch(err) {
+                console.log('error: no active song item');
+            }
     } else {
         console.log('pass: ' + passes);
     }
@@ -124,6 +126,30 @@ function previous_song() {
 }
 
 $(document).ready(function () {
+
+    $('#btnRight').click(function (e) {
+        console.log('Clicked Btn right');
+        var selectedOpts = $('#playlistItems option:selected');
+        if (selectedOpts.length == 0) {
+            alert("Nothing to move.");
+            e.preventDefault();
+        }
+        $('#allItems').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+    $('#btnLeft').click(function (e) {
+        console.log('Clicked Btn right');
+        var selectedOpts = $('#allItems option:selected');
+        if (selectedOpts.length == 0) {
+            alert("Nothing to move.");
+            e.preventDefault();
+        }
+        $('#playlistItems').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
 
     $('.songitem').click(function (event) {
         var hash = this.id.substr(3);
@@ -198,6 +224,8 @@ $(document).ready(function () {
         setplaylistheight();
         setplaylistscroll();
     }).resize();
+
+
 
     checkreloaded();
     setuservolume();

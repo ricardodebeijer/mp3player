@@ -3,9 +3,10 @@ import os
 from operator import attrgetter
 from os import listdir
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from player import downloader
-from player.models import Artist, Song
+from player.models import Artist, Song, Playlist, Account
 from player.utils import create_hash
 
 
@@ -15,6 +16,17 @@ def get_songs():
         os.mkdir(path)
 
     store = Song.objects.all().order_by('artist__name')
+    return store
+
+
+def get_songs_from_playlist(playlist_hash):
+    playlist = Playlist.objects.get(hash=playlist_hash)
+    store = playlist.songs.all()
+    return store
+
+
+def get_playlists():
+    store = Playlist.objects.all()
     return store
 
 
@@ -41,3 +53,24 @@ def add_item(url, artist_name, song_title):
         thread.start()
     else:
         print('Song already in store: ' + song_title + ' from: ' + artist_name)
+
+
+def create_playlist(playlist_name):
+    print('Creating playlist: ' + playlist_name)
+    #get current user and create a playlist object.
+    playlist = Playlist()
+    # TODO replace with actual logged in user
+    playlist.owner = User.objects.get(username='nekkyou')
+    playlist.hash = create_hash(playlist.owner.username + playlist_name)
+    playlist.title = playlist_name
+
+    createdplaylist = Playlist.objects.add(playlist)
+
+
+def save_playlist(playlist_hash, songs):
+    print('Saving playlist ' + playlist_hash)
+
+    playlist = Playlist.objects.get(hash=playlist_hash)
+    playlist.songs = Song.objects.filter(hash__in=songs)
+    playlist.save()
+

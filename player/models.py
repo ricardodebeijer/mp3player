@@ -54,8 +54,10 @@ class SongManager(models.Manager):
 
 class PlaylistManager(models.Manager):
     def add(self, playlist):
-        playlist = self.create(playlist)
-
+        if not isinstance(playlist, Playlist):
+            print(playlist)
+            raise InvalidModelInstanceException('playlist is not a instance of Playlist')
+        playlist.save()
         return playlist
 
 
