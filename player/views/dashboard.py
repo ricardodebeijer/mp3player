@@ -1,4 +1,8 @@
+import glob
+import os
 import shutil
+
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from pprint import pprint
@@ -20,12 +24,22 @@ def admin_artist(request, artist_hash=None):
     if request.method == "POST":
         form = ArtistForm(request.POST, instance=artist)
         if form.is_valid():
-            item = form.save(commit=False)
+            old_item = Artist.objects.get(hash=artist_hash)
+            new_item = form.save(commit=False)
+            item = update_artist(old_item, new_item)
             item.save()
             return redirect('dashboard_index')
     else:
         form = ArtistForm(instance=artist)
     return render(request, 'dashboard/edit.html', {'form': form, 'title': 'Admin Artist Edit', })
+
+
+def admin_artist_delete(request, artist_hash=None):
+    Artist.objects.get(hash=artist_hash).delete()
+    path = settings.PACKAGE_ROOT + '/' + settings.MEDIA_URL + '/' + artist_hash
+    # print('delete path: ' + path)
+    shutil.rmtree(path)
+    return redirect('dashboard_index')
 
 
 def admin_song(request, song_hash=None):
@@ -41,6 +55,21 @@ def admin_song(request, song_hash=None):
     else:
         form = SongForm(instance=song)
     return render(request, 'dashboard/edit.html', {'form': form, 'title': 'Admin Song Edit', })
+
+
+def admin_song_delete(request, song_hash=None):
+    song = Song.objects.get(hash=song_hash)
+    mp3_path = settings.PACKAGE_ROOT + song.source_mp3
+    jpg_path = settings.PACKAGE_ROOT + song.source_jpg
+    mp3_path = mp3_path.replace('\\', '/')
+    jpg_path = jpg_path.replace('\\', '/')
+    try:
+        os.remove(mp3_path)
+        os.remove(jpg_path)
+    except OSError:
+        pass
+    song.delete()
+    return redirect('dashboard_index')
 
 
 def admin_user(request, username=None):
@@ -69,6 +98,17 @@ def admin_playlist(request, playlist_hash=None):
     return render(request, 'dashboard/edit.html', {'form': form, 'title': 'Admin Playlist Edit', })
 
 
+def update_artist(old, new):
+    item = old
+    if old.name != new.name:
+        item.name = new.name
+        item.hash = create_hash(item.title)
+
+    # rename folder and move everything
+
+    return item
+
+
 def update_song(old, new):
     item = old
     # pprint(vars(old))
@@ -81,11 +121,17 @@ def update_song(old, new):
 
     if old.artist_id != new.artist_id:
         item.artist = Artist.objects.get(id=new.artist_id)
-        new_mp3_path = item.source_mp3[1:]
-        new_jpg_path = item.source_jpg[1:]
-        #print(old_jpg_path + '\r\n' + new_jpg_path + '\r\n' + old_mp3_path + '\r\n' + new_mp3_path)
-        # move mp3 and jpg
+
+    new_mp3_path = item.source_mp3[1:]
+    new_jpg_path = item.source_jpg[1:]
+    # print(old_jpg_path + '\r\n' + new_jpg_path + '\r\n' + old_mp3_path + '\r\n' + new_mp3_path)
+    # move mp3 and jpg
+    print('moving mp3 from: ' + old_mp3_path + ', to: ' + new_mp3_path)
+    try:
         shutil.move(old_jpg_path, new_jpg_path)
         shutil.move(old_mp3_path, new_mp3_path)
+    except OSError:
+        pass
+
     # pprint(vars(item))
     return item

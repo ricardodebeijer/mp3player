@@ -9,6 +9,7 @@
                 <tr>
                     <th>Artist</th>
                     <th>Songs</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -17,19 +18,73 @@
                         <td>
                             <a href="{% url 'dashboard_artist' artist.hash %}">{{ artist.name }}</a>
                         </td>
-                        <td>
-                            <ul>
-                                {% for song in artist.songs.all %}
-                                    <li>
-                                        <a href="{% url 'dashboard_song' song.hash %}">{{ song.title }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </td>
+                        {% if artist.songs.all %}
+                            <td>
+                                <ul>
+                                    {% for song in artist.songs.all %}
+                                        <li>
+                                            <a href="{% url 'dashboard_song' song.hash %}">{{ song.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    {% for song in artist.songs.all %}
+                                        <li>
+                                            <a href="#" data-href="{% url 'dashboard_song_delete' song.hash %}"
+                                               data-toggle="modal" data-target="#confirm-delete"
+                                               data-itemname="{{ song.name }}">
+                                                <p class="glyphicon glyphicon-remove"></p></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul
+
+                            </td>
+                        {% else %}
+                            <td>
+                                ---
+                            </td>
+                            <td>
+                                <a href="#" data-href="{% url 'dashboard_artist_delete' artist.hash %}"
+                                   data-toggle="modal" data-target="#confirm-delete"
+                                   data-itemname="{{ artist.name }}">
+                                    <p class="glyphicon glyphicon-remove"></p></a>
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            Delete song: <span id="item"></span>
+                        </div>
+                        {#                                            <div class="modal-body">#}
+                        {#                                                Pressing Delete will resort in removal from db and filesystem.#}
+                        {#                                            </div>#}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancel
+                            </button>
+                            <a class="btn btn-danger btn-ok">Delete</a>
+                        </div>
+                        <script>
+                            $('#confirm-delete').on('show.bs.modal', function (e) {
+                                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                                var title = $(e.relatedTarget).data('itemname');
+                                console.log('title: ' + title);
+                                $('item').text(title);
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+
             <h4>Users with Playlists:</h4>
             <table class="table">
                 <thead>
