@@ -62,9 +62,9 @@
                         <div class="modal-header">
                             <h3>Delete <span id="sort"></span>: <span id="item"></span></h3>
                         </div>
-{#                        <div class="modal-body">#}
-{#                            Pressing Delete will resort in removal from db and filesystem.#}
-{#                        </div>#}
+                        {#                        <div class="modal-body">#}
+                        {#                            Pressing Delete will resort in removal from db and filesystem.#}
+                        {#                        </div>#}
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancel
@@ -89,6 +89,7 @@
                 <tr>
                     <th>Username</th>
                     <th>Playlist</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -102,6 +103,16 @@
                                 {% for playlist in user.playlists.all %}
                                     <li>
                                         <a href="{% url 'dashboard_playlist' playlist.hash %}">{{ playlist.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                {% for playlist in user.playlists.all %}
+                                    <li>
+                                        <a href="{% url 'manage_playlist' playlist.hash %}"> <span
+                                                class="glyphicon glyphicon-wrench"></span></a>
                                     </li>
                                 {% endfor %}
                             </ul>

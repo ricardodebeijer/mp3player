@@ -55,15 +55,12 @@ def add_item(url, artist_name, song_title):
         print('Song already in store: ' + song_title + ' from: ' + artist_name)
 
 
-def create_playlist(playlist_name):
+def create_playlist(playlist_name, request):
     print('Creating playlist: ' + playlist_name)
-    #get current user and create a playlist object.
     playlist = Playlist()
-    # TODO replace with actual logged in user
-    playlist.owner = User.objects.get(username='nekkyou')
+    playlist.owner = request.user
     playlist.hash = create_hash(playlist.owner.username + playlist_name)
     playlist.title = playlist_name
-
     createdplaylist = Playlist.objects.add(playlist)
 
 
