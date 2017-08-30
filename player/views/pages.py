@@ -2,21 +2,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from player import store
-from player.models import Artist
+from player.models import Artist, Song
 from player.utils import set_playlist_hashes, set_cover_art
 
 
 @login_required
 def index(request, message=None):
-    if 'current_song_json' not in request.session:
-        song = None
-    else:
-        song = request.session['current_song_json']
-
+    song = get_current_song(request)
     songs = store.get_songs()
     set_playlist_hashes(request, songs)
     cover_art_jpg = set_cover_art(song)
-
     context = {
         'songs': songs,
         'current_song': song,
@@ -24,6 +19,19 @@ def index(request, message=None):
         'message': message,
     }
     return render(request, 'index.html', context)
+
+
+def get_current_song(request):
+    song = None
+    if 'current_song_json' in request.session:
+        song = request.session['current_song_json']
+
+    try:
+        Song.objects.get(hash=song['hash'])
+    except Song.DoesNotExist:
+        song = None
+
+    return song
 
 
 def artist(request, value=None):

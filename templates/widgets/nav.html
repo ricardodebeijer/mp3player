@@ -15,6 +15,11 @@
             <ul class="nav navbar-nav">
                 {% if request.user.is_authenticated %}
                     <li>
+                        <a href="#" data-toggle="modal" data-target="#search-item">
+                            <span class="glyphicon glyphicon-search"></span> Search
+                        </a>
+                    </li>
+                    <li>
                         <a href="{% url 'addsong' %}">
                             <span class="glyphicon glyphicon-play-circle"></span> Add Song
                         </a>
@@ -49,4 +54,25 @@
             </ul>
         </div>
     </div>
+
+    <div class="modal fade" id="search-item" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form id="search-form" method="post" action="{% url 'searchitem' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input id="search-input" name="search-input" type="text" class="form-control"
+                                   placeholder="Search for song, artist, playlist or user!">
+                        </div>
+                        <button type="submit" class="btn btn-default" id="searchbtn">
+                            <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </nav>

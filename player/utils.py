@@ -1,6 +1,5 @@
 import hashlib
 import re
-from pprint import pprint
 from django.http import HttpResponse
 
 

@@ -99,13 +99,21 @@ def admin_playlist(request, playlist_hash=None):
 
 
 def update_artist(old, new):
+    print('old: ', old.name, old.hash)
+    print('new: ', new.name, new.hash)
+
     item = old
     if old.name != new.name:
         item.name = new.name
-        item.hash = create_hash(item.title)
-
+        item.hash = create_hash(item.name)
+    print('item: ', item.name, item.hash)
     # rename folder and move everything
-
+    base = settings.PACKAGE_ROOT + '/' + settings.MEDIA_URL
+    base = base.replace('\\', '/')
+    old_path = base + new.hash
+    new_path = base + item.hash
+    print('renaming folder from: ' + old_path + ', to: ' + new_path)
+    os.rename(old_path, new_path)
     return item
 
 

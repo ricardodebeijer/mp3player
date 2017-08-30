@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^user/(\w+)/$', pages.user, name='user'),
 
     url(r'^addsong/$', store.add_song, name='addsong'),
+    url(r'^searchitem/$', store.search_item, name='searchitem'),
     url(r'^inputurl/$', store.input_url, name='inputurl'),
     url(r'^submitinfo/$', store.submit_info, name='submitinfo'),
     url(r'^extension/$', store.extension_request, name='extension_request'),

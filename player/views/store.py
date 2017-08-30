@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from player import infogather, store
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -15,6 +15,13 @@ def add_song(request, url=None, artist=None, title=None):
         'title': title,
     }
     return render(request, 'addsong.html', context)
+
+
+def search_item(request):
+    if request.method == "POST":
+        criteria = request.POST['search-input']
+        print('search for: ' + criteria)
+    return redirect('index')
 
 
 def input_url(request, value=None):
@@ -35,6 +42,7 @@ def submit_info(request, value=None):
         store.add_item(url, artist, song_title)
     return index(request, 'Download in progess')
 
+
 @csrf_exempt
 def extension_request(request):
     url = request.POST.get('url')
@@ -43,4 +51,3 @@ def extension_request(request):
     print('Request from extension: ' + artist + ' - ' + title + ' (' + url + ')')
     store.add_item(url, artist, title)
     return HttpResponse('')
-
