@@ -6,7 +6,8 @@
                     <li class="">
                         <p id="btn{{ playlist.hash }}" class="glyphicon songitem"></p>
                         <a href="{% url 'play_playlist' playlist.hash %}">{{ playlist.title }}</a>
-                        <a href="{% url 'manage_playlist' playlist.hash %}">Manage playlist</a>
+                        <a href="{% url 'manage_playlist' playlist.hash %}"> <span
+                                class="glyphicon glyphicon-wrench"></span></a>
                     </li>
                 {% endfor %}
             </ul>

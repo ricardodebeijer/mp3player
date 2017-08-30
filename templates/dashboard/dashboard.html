@@ -1,0 +1,115 @@
+{% extends 'template.html' %}
+{% block content %}
+    <div class="container">
+        <div class="col-xs-12">
+            <h3>Admin Dashboard</h3>
+            <h4>Artists with Songs:</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Artist</th>
+                    <th>Songs</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for artist in artists %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'dashboard_artist' artist.hash %}">{{ artist.name }}</a>
+                        </td>
+                        {% if artist.songs.all %}
+                            <td>
+                                <ul>
+                                    {% for song in artist.songs.all %}
+                                        <li>
+                                            <a href="{% url 'dashboard_song' song.hash %}">{{ song.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    {% for song in artist.songs.all %}
+                                        <li>
+                                            <a href="#" data-href="{% url 'dashboard_song_delete' song.hash %}"
+                                               data-toggle="modal" data-target="#confirm-delete"
+                                               data-itemname="{{ song.title }}" data-itemsort="song">
+                                                <p class="glyphicon glyphicon-remove"></p></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        {% else %}
+                            <td>
+                                ---
+                            </td>
+                            <td>
+                                <a href="#" data-href="{% url 'dashboard_artist_delete' artist.hash %}"
+                                   data-toggle="modal" data-target="#confirm-delete"
+                                   data-itemname="{{ artist.name }}" data-itemsort="artist">
+                                    <p class="glyphicon glyphicon-remove"></p></a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Delete <span id="sort"></span>: <span id="item"></span></h3>
+                        </div>
+{#                        <div class="modal-body">#}
+{#                            Pressing Delete will resort in removal from db and filesystem.#}
+{#                        </div>#}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancel
+                            </button>
+                            <a class="btn btn-danger btn-ok">Delete</a>
+                        </div>
+                        <script>
+                            $('#confirm-delete').on('show.bs.modal', function (e) {
+                                $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+                                $('#item').text($(e.relatedTarget).data('itemname'));
+                                $('#sort').text($(e.relatedTarget).data('itemsort'));
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+
+            <h4>Users with Playlists:</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Playlist</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'dashboard_user' user.username %}">{{ user.username }}</a>
+                        </td>
+                        <td>
+                            <ul>
+                                {% for playlist in user.playlists.all %}
+                                    <li>
+                                        <a href="{% url 'dashboard_playlist' playlist.hash %}">{{ playlist.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
