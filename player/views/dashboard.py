@@ -54,7 +54,8 @@ def admin_song(request, song_hash=None):
             return redirect('dashboard_index')
     else:
         form = SongForm(instance=song)
-    return render(request, 'dashboard/edit.html', {'form': form, 'title': 'Admin Song Edit', })
+    return render(request, 'dashboard/edit.html',
+                  {'form': form, 'title': 'Admin Song Edit', 'issong': True, 'selected_song': song})
 
 
 def admin_song_delete(request, song_hash=None):
