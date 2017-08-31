@@ -9,31 +9,7 @@
             </form>
 
             {% if issong %}
-                <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
-
-                <p id="loadingmp3">loading...</p>
-                <div id="waveform"></div>
-
-                <button class="btn btn-default">
-                    <span class="glyphicon glyphicon-fast-backward"></span> Delete before
-                </button>
-                <button class="btn btn-default">
-                    <span class="glyphicon glyphicon-fast-forward"></span> Delete after
-                </button>
-                <script>
-                    var wavesurfer = WaveSurfer.create({
-                        container: '#waveform'
-                    });
-                    wavesurfer.load('{{ selected_song.source_mp3 }}');
-                    wavesurfer.on('ready', function () {
-                        $('#loadingmp3').remove();
-                        {#                        wavesurfer.play();#}
-                    });
-                    wavesurfer.on('seek', function () {
-                        console.log('time: ' + wavesurfer.getCurrentTime())
-                        wavesurfer.play()
-                    });
-                </script>
+                {% include 'widgets/mp3edit.html' with selected_song=selected_song %}
             {% endif %}
         </div>
     </div>

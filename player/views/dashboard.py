@@ -8,6 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from pprint import pprint
 from player.forms import ArtistForm, SongForm, UserForm, PlaylistForm
 from player.models import Artist, Song, Playlist
+from player.mp3edit import slice_mp3
 from player.utils import create_hash
 
 
@@ -56,6 +57,17 @@ def admin_song(request, song_hash=None):
         form = SongForm(instance=song)
     return render(request, 'dashboard/edit.html',
                   {'form': form, 'title': 'Admin Song Edit', 'issong': True, 'selected_song': song})
+
+
+def admin_song_mp3(request):
+    if request.method == "POST":
+        song_hash = request.POST['edithash']
+        song = Song.objects.get(hash=song_hash)
+        type = request.POST['edittype']
+        position = request.POST['edittime']
+        slice_mp3(song, type, position)
+        return redirect('dashboard_song', song_hash)
+    return redirect('dashboard_index')
 
 
 def admin_song_delete(request, song_hash=None):

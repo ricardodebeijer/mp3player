@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^artist/(\w+)/edit/$', dashboard.admin_artist, name='dashboard_artist'),
     url(r'^artist/(\w+)/delete/$', dashboard.admin_artist_delete, name='dashboard_artist_delete'),
     url(r'^song/(\w+)/edit/$', dashboard.admin_song, name='dashboard_song'),
+    url(r'^song/mp3/$', dashboard.admin_song_mp3, name='dashboard_song_mp3'),
     url(r'^song/(\w+)/delete/$', dashboard.admin_song_delete, name='dashboard_song_delete'),
     url(r'^playlist/(\w+)/edit/$', dashboard.admin_playlist, name='dashboard_playlist'),
     url(r'^user/(\w+)/edit/$', dashboard.admin_user, name='dashboard_user'),

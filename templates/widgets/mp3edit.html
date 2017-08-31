@@ -1,4 +1,79 @@
-{% extends 'template.html' %}
-{% block content %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.4.0/wavesurfer.min.js"></script>
 
-{% endblock %}
+<p id="loadingmp3">loading...</p>
+<div id="waveform"></div>
+
+
+<form action="{% url 'dashboard_song_mp3' %}" method="post" id="mp3editform">
+    {% csrf_token %}
+    <input type="hidden" name="edittype" id="edittype">
+    <input type="hidden" name="edittime" id="edittime">
+    <input type="hidden" name="edithash" id="edithash" value="{{ selected_song.hash }}">
+</form>
+
+<button class="btn btn-default" id="btneditbefore">
+    <span class="glyphicon glyphicon-fast-backward"></span> Delete before
+</button>
+<input type="number" id="currenttimeinput" min="0" step="any"/>
+<button class="btn btn-default" id="btneditafter">
+    <span class="glyphicon glyphicon-fast-forward"></span> Delete after
+</button>
+<script>
+    var wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: 'gray',
+        progressColor: 'green'
+    });
+    wavesurfer.load('{{ selected_song.source_mp3 }}');
+    wavesurfer.on('ready', function () {
+        $('#loadingmp3').remove();
+        var duration = wavesurfer.getDuration();
+        console.log('duration: ' + duration);
+        $($('#currenttimeinput')).attr({
+            "max": duration,
+            "val": 0
+        });
+        {#                        wavesurfer.play();#}
+    });
+    wavesurfer.on('seek', function () {
+        var current = wavesurfer.getCurrentTime();
+        console.log('time: ' + current);
+        wavesurfer.play();
+        $('#currenttimeinput').val(current);
+    });
+    $('#currenttimeinput')
+        .on('change', function () {
+            var input = $('#currenttimeinput').val();
+            console.log('input changed: ' + input);
+            wavesurfer.seekTo(0);
+            wavesurfer.skip(input);
+        })
+        .on('focus', function () {
+            console.log('focused');
+            $('#currenttimeinput').change();
+            wavesurfer.pause();
+        });
+
+
+    function setformtime() {
+        $('#edittime').val($('#currenttimeinput').val())
+    }
+
+    function submiteditform() {
+        $('#mp3editform').submit()
+    }
+
+    function seteditdata(type) {
+        setformtime();
+        $('#edittype').val(type);
+        submiteditform();
+    }
+
+    $('#btneditbefore').on('click', function () {
+        seteditdata('before')
+    });
+
+    $('#btneditafter').on('click', function () {
+        seteditdata('after')
+    });
+</script>
