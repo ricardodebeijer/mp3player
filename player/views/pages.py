@@ -22,14 +22,16 @@ def index(request, message=None):
 
 
 def get_current_song(request):
-    song = None
+    json = None
     if 'current_song_json' in request.session:
-        song = request.session['current_song_json']
+        json = request.session['current_song_json']
 
+    song = None
     try:
-        Song.objects.get(hash=song['hash'])
+        if json is not None:
+            song = Song.objects.get(hash=json['hash'])
     except Song.DoesNotExist:
-        song = None
+        pass
 
     return song
 

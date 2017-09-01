@@ -18,6 +18,9 @@
 <button class="btn btn-default" id="btneditafter">
     <span class="glyphicon glyphicon-fast-forward"></span> Delete after
 </button>
+<button class="btn btn-default" id="btneditreload">
+    <span class="glyphicon glyphicon-retweet"></span> Reload Mp3
+</button>
 <script>
     var wavesurfer = WaveSurfer.create({
         container: '#waveform',
@@ -75,5 +78,8 @@
 
     $('#btneditafter').on('click', function () {
         seteditdata('after')
+    });
+    $('#btneditreload').on('click', function () {
+        wavesurfer.load('{{ selected_song.source_mp3 }}');
     });
 </script>

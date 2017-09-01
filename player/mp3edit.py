@@ -3,24 +3,30 @@ from pydub import AudioSegment
 
 
 def slice_mp3(song, type, posistion):
-    print('Deleting ' + type + ' ' + posistion + ' on ' + song.title)
+    #print('Deleting ' + type + ' ' + posistion + ' on ' + song.title)
     path = settings.PACKAGE_ROOT + song.source_mp3
     file = AudioSegment.from_mp3(path)
-    print(file)
+    #print(file)
     duration = file.duration_seconds
-    print('duration: ' + str(duration))
+    duration = float(duration)
+    #print('duration: ' + str(duration))
+    index = round(float(posistion), 3)
+    #print('index: ' + str(index))
+    indexmilis = index * 1000
+    #print('indexmilis: ' + str(indexmilis))
 
-    index = posistion
-    print('index: ' + str(index))
-    index = round(posistion, 0)
-    print('index3: ' + str(index))
-
+    finalfile = None
     if type == 'after':
-        sliced = file[:index]
-        print('sliced duration: ' + sliced.duration_seconds)
+        sliced = file[:indexmilis]
+        #print('sliced after duration: ' + str(sliced.duration_seconds))
+        finalfile = sliced
     elif type == 'before':
-        start = duration - index
+        start = duration * 1000 - indexmilis
+        #print('start: ' + str(start))
         sliced = file[-start:]
-        print('sliced duration: ' + sliced.duration_seconds)
-    # sliced.export(path, format="mp3")
+        #print('sliced before duration: ' + str(sliced.duration_seconds))
+        finalfile = sliced
+
+    #test_path = settings.PACKAGE_ROOT + '/' + settings.MEDIA_URL + song.artist.hash + '/' + song.hash + 'TESTING.mp3'
+    finalfile.export(path, format="mp3")
     print('exported!')
