@@ -74,4 +74,4 @@ def set_cover_art(song):
     if song is None:
         return '/static/icons/favicon.png'
     else:
-        return song['source_jpg']
+        return song.source_jpg
