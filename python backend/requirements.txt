@@ -8,3 +8,6 @@ requests
 youtube-dl
 gunicorn
 pydub
+djangorestframework
+markdown
+django-filter

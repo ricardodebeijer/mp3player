@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^player/', include('player.urls')),
-    url(r'^admin/', admin.site.urls),
+  url(r'^player/', include('player.urls')),
+  url(r'^api/', include('api.urls')),
+  url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

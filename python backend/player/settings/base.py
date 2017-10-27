@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'player.apps.PlayerConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,11 @@ MEDIA_URL = 'music/'
 
 # User auth
 LOGIN_URL = '/player/login/'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ]
+}
