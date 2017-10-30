@@ -1,0 +1,35 @@
+.navcolor, .btn-player {
+    background-color: rgba(12, 12, 12, 0.83);
+    color: #87939a;
+    border-color: rgba(12, 12, 12, 0.83);
+}
+
+.navcolor:hover, .btn-player {
+    background-color: rgba(12, 12, 12, 0.83);
+    color: #87939a;
+    border-color: #639751;
+}
+
+
+
+button.navbuttonlink, button.navbuttonlink:focus, button.navbuttonlink:active {
+    /* Remove all decorations to look like normal text */
+    background: none;
+    border: none;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    outline: none;
+    outline-offset: 0;
+    /* Additional styles to look like a link */
+    cursor: pointer;
+}
+button.navbuttonlink:hover{
+    color: #fff ;
+}
+.navbuttonlink.rightnav{
+    float: left;
+}

@@ -48,6 +48,7 @@ class CurrentSong(models.Model):
     user = models.ForeignKey(User)
     playlist = models.ForeignKey(Playlist)
     song = models.ForeignKey(Song)
+    last_time = models.IntegerField()
 
     @property
     def artist_name(self):

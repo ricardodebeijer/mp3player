@@ -1,21 +1,66 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Nav from "./Nav/Nav";
+import Footer from "./Footer/Footer";
+import Player from "./Player/Player";
+import Admin from "./Admin/Admin";
+import Artist from "./Artist/Artist";
+import Playlist from "./Playlist/Playlist";
+import User from "./User/User";
+import Main from "./Main/Main";
+import Login from "./Login/Login";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+    constructor(props) {
+        super(props);
+        this.state ={
+            currentPage: "main"
+        };
+        this.toggleView=this.toggleView.bind(this);
+    }
+
+    toggleView(newPage) {
+        this.setState({
+            currentPage: newPage
+        });
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <div className="demo">
+                    <div className="container ">
+                        <Nav toggleView={this.toggleView.bind(this)}/>
+                        {{
+                            "main": (
+                                <Main/>
+                            ),
+                            "login": (
+                                <Login/>
+                            ),
+                            "admin": (
+                                <Admin/>
+                            ),
+                            "artist": (
+                                <Artist/>
+                            ),
+                            "playlist": (
+                                <Playlist/>
+                            ),
+                            "user": (
+                                <User/>
+                            )
+                        }[this.state.currentPage]}
+
+
+                        <Player/>
+                    </div>
+                </div>
+                <Footer/>
+            </div>
+        );
+    }
 }
 
 export default App;

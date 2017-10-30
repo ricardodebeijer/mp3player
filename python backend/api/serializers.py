@@ -34,5 +34,5 @@ class PlaylistSerializer(serializers.HyperlinkedModelSerializer):
 class CurrentSongSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CurrentSong
-        fields = ('user', 'playlist', 'song',)
-        read_only_fields = ('artist_name', 'song_title', 'song_jpg', 'song_mp3',)
+        fields = ('user', 'playlist', 'song', 'last_time', 'artist_name', 'song_title', 'song_jpg', 'song_mp3',)
+        read_only_fields = ()
