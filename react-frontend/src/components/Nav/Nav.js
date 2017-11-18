@@ -121,14 +121,14 @@ class Nav extends Component {
                          aria-labelledby="myModalLabel" aria-hidden="true">
                         <div className="modal-dialog">
                             <div className="modal-content">
-                                <div className="modal-body">
+                                <div className="modal-body search-modal">
                                     <form id="search-form" method="post" action="#">
                                         <div className="form-group">
                                             <input id="search-input" name="search-input" type="text"
-                                                   className="form-control"
+                                                   className="form-control search-modal-input"
                                                    placeholder="Search for song, artist, playlist or user!"/>
                                         </div>
-                                        <button type="submit" className="btn btn-default" id="searchbtn">
+                                        <button type="submit" className="btn btn-default search-modal-button" id="searchbtn">
                                             <span className="glyphicon glyphicon-search"/> Search
                                         </button>
                                     </form>

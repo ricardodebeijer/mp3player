@@ -1,0 +1,10 @@
+.active-song {
+    color: #639751;
+}
+
+.playerdiv {
+    position: fixed;
+    bottom: 6rem;
+    width: inherit;
+}
+

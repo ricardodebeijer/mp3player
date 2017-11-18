@@ -1,21 +1,21 @@
 import React, {Component} from 'react';
 import './App.css';
-import Nav from "./Nav/Nav";
-import Footer from "./Footer/Footer";
-import Player from "./Player/Player";
-import Admin from "./Admin/Admin";
-import Artist from "./Artist/Artist";
-import Playlist from "./Playlist/Playlist";
-import User from "./User/User";
-import Main from "./Main/Main";
-import Login from "./Login/Login";
+import Nav from "./components/Nav/Nav";
+import Footer from "./containers/Footer/Footer";
+import Player from "./components/Player/Player";
+import Admin from "./containers/Admin/Admin";
+import Artist from "./containers/Artist/Artist";
+import Playlist from "./containers/Playlist/Playlist";
+import User from "./containers/User/User";
+import Main from "./containers/Main/Main";
+import Login from "./containers/Login/Login";
 
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state ={
-            currentPage: "main"
+            currentPage: "admin"
         };
         this.toggleView=this.toggleView.bind(this);
     }

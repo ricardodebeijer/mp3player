@@ -1,0 +1,8 @@
+.player-button {
+    color: #3c3f41;
+    font-size: 3em;
+}
+
+.player-button:hover {
+    color: #639751;
+}

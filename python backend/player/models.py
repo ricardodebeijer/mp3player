@@ -24,11 +24,11 @@ class Song(models.Model):
 
     @property
     def source_jpg(self):
-        return '/' + settings.MEDIA_URL + self.artist.hash + '/' + self.hash + '.jpg'
+        return 'http://localhost:8000/' + settings.MEDIA_URL + self.artist.hash + '/' + self.hash + '.jpg'
 
     @property
     def source_mp3(self):
-        return '/' + settings.MEDIA_URL + self.artist.hash + '/' + self.hash + '.mp3'
+        return 'http://localhost:8000/' + settings.MEDIA_URL + self.artist.hash + '/' + self.hash + '.mp3'
 
     def __str__(self):
         return self.artist.name + ' - ' + self.title

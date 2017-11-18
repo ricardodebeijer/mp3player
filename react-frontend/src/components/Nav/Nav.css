@@ -10,8 +10,6 @@
     border-color: #639751;
 }
 
-
-
 button.navbuttonlink, button.navbuttonlink:focus, button.navbuttonlink:active {
     /* Remove all decorations to look like normal text */
     background: none;
@@ -27,9 +25,41 @@ button.navbuttonlink, button.navbuttonlink:focus, button.navbuttonlink:active {
     /* Additional styles to look like a link */
     cursor: pointer;
 }
-button.navbuttonlink:hover{
-    color: #fff ;
+
+button.navbuttonlink:hover {
+    color: #fff;
 }
-.navbuttonlink.rightnav{
+
+.navbuttonlink.rightnav {
     float: left;
+}
+
+.search-modal {
+    background: #2b2b2b;
+    color: #87939a;
+    border-radius: 6px;
+}
+
+.search-modal-input {
+    background: #2b2b2b;
+    color: #87939a;
+    border-color: #87939a;
+}
+
+.search-modal-input:focus {
+    background: #2b2b2b;
+    color: #87939a;
+    border-color: #639751;
+}
+
+.search-modal-button {
+    background: #2b2b2b;
+    color: #87939a;
+    border-color: #87939a;
+}
+
+.search-modal-button:hover{
+    background: #2b2b2b;
+    color: #639751;
+    border-color: #639751;
 }
