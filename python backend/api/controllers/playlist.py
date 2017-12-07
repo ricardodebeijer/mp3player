@@ -1,9 +1,8 @@
 from rest_framework import viewsets
 from api.serializers import PlaylistSerializer
-from api.viewsets import ReadOnlyViewSet, UpdateViewSet
 from player.models import Playlist
 
 
-class AllPlaylists(UpdateViewSet):
+class PlaylistController(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer

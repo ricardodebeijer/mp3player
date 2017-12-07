@@ -25,27 +25,27 @@ class Main extends Component {
         });
     }
 
+    playlists() {
+        return Object.keys(this.props.user_playlists).map(key => this.props.user_playlists[key])
+    }
+
     render() {
-        let playlists = this.props.user_playlists;
-        console.log('playlists:', playlists);
         return (
             <div>
                 <h1>Recently played/check out:</h1>
-
                 {
-                    playlists.length > 0 ? (
+                    !this.state.searching ? (
                         <div>
                             {
-                                playlists.map(function (item) {
+                                this.playlists().map((item, index) => {
                                     return (
-                                        <div key={item} className="col-xs-3">
+                                        <div key={index} className="col-xs-3">
                                             <PlaylistAlbumButton playlist={item}/>
                                         </div>
                                     )
                                 })
                             }
                         </div>
-
                     ) : (
                         <p>Bezig met ophalen playlists...</p>
                     )
@@ -59,7 +59,6 @@ class Main extends Component {
 function mapStateToProps(state) {
     return {
         user_playlists: state.user_playlists,
-        currentSong: state.current_song
     };
 }
 

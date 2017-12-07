@@ -13,7 +13,7 @@ class PlaylistAlbumButton extends Component {
     }
 
     navigateToPlaylist(){
-
+        alert('ja..')
     }
 
     playPlaylist(){
@@ -33,7 +33,7 @@ class PlaylistAlbumButton extends Component {
                     <p onClick={this.playPlaylist} className="glyphicon glyphicon-play player-button"/>
                 </div>
                 <h4 onClick={this.navigateToPlaylist}>
-                    {this.props.playlist}
+                    <a href={this.props.playlist.url}>{this.props.playlist.title}</a>
                 </h4>
 
             </div>

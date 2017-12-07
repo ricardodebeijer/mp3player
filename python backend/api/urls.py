@@ -1,20 +1,20 @@
 from django.conf.urls import url, include
-from rest_framework import routers
+from api.controllers.artist import ArtistController
+from api.controllers.playlist import PlaylistController
+from api.controllers.player import PlayerController
+from api.controllers.song import SongController
+from api.controllers.user import UserController
+from rest_framework.routers import DefaultRouter
 
-from api.controllers.artist import AllArtists
-from api.controllers.player import AllCurrentSongs
-from api.controllers.playlist import AllPlaylists
-from api.controllers.song import AllSongs
-from api.controllers.user import AllUsers
-
-router = routers.DefaultRouter()
-router.register(r'users', AllUsers)
-router.register(r'artist', AllArtists)
-router.register(r'song', AllSongs)
-router.register(r'playlist', AllPlaylists)
-router.register(r'current', AllCurrentSongs)
+router = DefaultRouter()
+router.register(r'artist', ArtistController, base_name='artist')
+router.register(r'playlist', PlaylistController, base_name='playlist')
+router.register(r'player', PlayerController, base_name='player')
+router.register(r'song', SongController, base_name='song')
+router.register(r'user', UserController, base_name='user')
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'', include(router.urls)),
 ]

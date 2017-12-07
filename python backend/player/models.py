@@ -1,9 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
-from django.core.exceptions import ObjectDoesNotExist
-from player.exceptions import InvalidModelInstanceException
-from player.utils import create_hash
 
 
 ###

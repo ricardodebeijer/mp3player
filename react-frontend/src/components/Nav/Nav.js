@@ -75,8 +75,8 @@ class Nav extends Component {
                                         </li>,
                                         <li key={"navplaylist"}>
                                             <button type="button" className="navbuttonlink"
-                                                    onClick={this.togglePlaylist}>
-                                                <span className="glyphicon glyphicon-list"/> Playlist
+                                                    onClick={this.toggleUser}>
+                                                <span className="glyphicon glyphicon-list"/> Playlists
                                             </button>
                                         </li>,
                                         <li key={"navadmin"}>

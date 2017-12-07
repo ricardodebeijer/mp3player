@@ -1,9 +1,8 @@
-from django.contrib.auth.models import User
 from rest_framework import viewsets
 from api.serializers import UserSerializer
-from api.viewsets import ReadOnlyViewSet
+from player.models import User
 
 
-class AllUsers(ReadOnlyViewSet):
+class UserController(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

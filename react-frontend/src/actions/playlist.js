@@ -20,8 +20,9 @@ import Api from '../lib/api'
 
 export function getUserPlaylists() {
     return (dispatch, getState) => {
-        return Api.get(`/users/1`).then(resp => {
-            dispatch(setUserPlaylists({playlists: resp.playlists}));
+        return Api.get(`/playlist/`).then(resp => {
+            let playlistsObj = Object.assign({},resp);
+            dispatch(setUserPlaylists({playlists: playlistsObj}));
         }).catch((ex) => {
             console.log(ex);
         });

@@ -3,7 +3,7 @@ import Api from '../lib/api'
 
 export function getCurrentSong() {
     return (dispatch, getState) => {
-        return Api.get(`/current/1/`).then(resp => {
+        return Api.get(`/player/1/`).then(resp => {
             dispatch(setCurrentSong({current: resp}));
         }).catch((ex) => {
             console.log('getCurrentSong', ex);
