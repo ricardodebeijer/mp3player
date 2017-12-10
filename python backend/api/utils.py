@@ -1,6 +1,5 @@
 import hashlib
 import re
-
 from player.models import CurrentSong
 
 

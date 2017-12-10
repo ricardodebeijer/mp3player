@@ -6,3 +6,5 @@ from player.models import Artist
 class ArtistController(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
+    lookup_field = 'hash'
+

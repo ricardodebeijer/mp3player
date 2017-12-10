@@ -5,8 +5,8 @@ class Api {
 
     static headers() {
         return {
-            // 'Accept': 'application/json',
-            // 'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
             // 'Authorization': 'Bearer ' + _authToken,
         }
     }

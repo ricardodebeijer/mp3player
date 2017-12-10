@@ -6,3 +6,4 @@ from player.models import Playlist
 class PlaylistController(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
+    lookup_field = 'hash'

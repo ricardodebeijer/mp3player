@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Admin.css';
 import AddSong from "../../components/AddSong/AddSong";
+import SongArtistTable from "../../components/SongArtistTable/SongArtistTable";
 
 class Admin extends Component {
     render() {
@@ -8,6 +9,7 @@ class Admin extends Component {
             <div>
                 <h1>Admin pagina</h1>
                 <AddSong/>
+                <SongArtistTable/>
             </div>
         );
     }

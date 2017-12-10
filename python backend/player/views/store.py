@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
-from player import infogather, store
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
+from api import infogather
+from player import store
 from player.views.pages import index
 
 

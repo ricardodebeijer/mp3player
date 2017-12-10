@@ -7,7 +7,6 @@ export const SET_VOLUME = 'SET_VOLUME';
 export const SET_TIME = 'SET_TIME';
 export const SET_DURATION = 'SET_DURATION';
 
-
 // Playlist
 export const SET_PLAYLIST = 'SET_PLAYLIST';
 export const SET_USER_PLAYLISTS = 'SET_USER_PLAYLISTS';
@@ -16,13 +15,16 @@ export const SET_DELETE_PLAYLIST = 'SET_DELETE_PLAYLIST';
 export const SET_ADD_SONG_TO_PLAYLIST = 'SET_ADD_SONG_TO_PLAYLIST';
 export const SET_DELETE_SONG_FROM_PLAYLIST = 'SET_DELETE_SONG_FROM_PLAYLIST';
 
-
 //Admin
-export const SET_INFO_FOR_URL = 'SET_INFO_FOR_URL';
-export const SET_ADMIN_ADD_SONG = 'SET_ADMIN_ADD_SONG';
 export const SET_ADMIN_DELETE_SONG = 'SET_ADMIN_DELETE_SONG';
 export const SET_ADMIN_DELETE_ARTIST = 'SET_ADMIN_DELETE_ARTIST';
+export const SET_ALL_SONGS = 'SET_ALL_SONGS';
+
 
 // Authentication
 export const SET_AUTHENTICATION = 'SET_AUTHENTICATION';
+
+// Add Song
+export const SET_INFO_FOR_URL = 'SET_INFO_FOR_URL';
+export const SET_ADMIN_ADD_SONG = 'SET_ADMIN_ADD_SONG';
 

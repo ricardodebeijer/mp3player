@@ -1,22 +1,24 @@
 import * as types from './types'
 import Api from '../lib/api'
 
-export function getInfoForUrl(url) {
+export function getAllSongs() {
     return (dispatch, getState) => {
-        return Api.get(`/url_info`).then(resp => {
-            dispatch(setInfoForUrl({info: resp}));
+        return Api.get(`/song/`).then(resp => {
+            let songsObj = Object.assign({},resp);
+            dispatch(setAllSongs({songs: songsObj}));
         }).catch((ex) => {
             console.log(ex);
         });
     }
 }
 
-export function setInfoForUrl({info}) {
+export function setAllSongs({songs}) {
     return {
-        type: types.SET_INFO_FOR_URL,
-        info,
+        type: types.SET_ALL_SONGS,
+        songs,
     }
 }
+
 //
 // export function deleteSong() {
 //     return (dispatch, getState) => {
@@ -36,22 +38,7 @@ export function setInfoForUrl({info}) {
 // }
 //
 //
-export function addSong() {
-    return (dispatch, getState) => {
-        return Api.get(`/add_song`).then(resp => {
-            dispatch(setAddSong({resp}));
-        }).catch((ex) => {
-            console.log(ex);
-        });
-    }
-}
 
-export function setAddSong({resp}) {
-    return {
-        type: types.SET_ADMIN_ADD_SONG,
-        status: resp,
-    }
-}
 
 
 // export function deleteArtist() {

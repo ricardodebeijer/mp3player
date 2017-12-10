@@ -6,3 +6,4 @@ from player.models import User
 class UserController(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    lookup_field = 'username'

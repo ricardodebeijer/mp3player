@@ -30,6 +30,7 @@
 }
 
 .playlistimg {
+    min-height: 255px;
     width: 100%;
 }
 
@@ -39,8 +40,10 @@
 
 .title {
     text-align: center;
-    z-index: 1;
-    transition: top .5s ease;
+}
+
+.title:hover {
+    color: #09E12D;
 }
 
 .playlistContainer:hover .buttonoverlay {

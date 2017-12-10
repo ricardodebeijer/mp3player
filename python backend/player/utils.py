@@ -3,13 +3,6 @@ import re
 from django.http import HttpResponse
 
 
-def create_hash(name):
-    name = str.lower(name)
-    name = re.sub('[^0-9a-zA-Z]+', '', name)
-    hashed = hashlib.md5(str(name).encode('utf-8')).hexdigest()
-    return hashed
-
-
 def set_session_and_return(request, song):
     print('Selected song: ' + str(song))
     request.session['current_song_json'] = {

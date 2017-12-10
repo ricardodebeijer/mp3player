@@ -6,18 +6,18 @@ import './PlaylistAlbumButton.css';
 
 class PlaylistAlbumButton extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.navigateToPlaylist = this.navigateToPlaylist.bind(this);
         this.playPlaylist = this.playPlaylist.bind(this);
     }
 
-    navigateToPlaylist(){
-        alert('ja..')
+    navigateToPlaylist() {
+        alert('ja..toon details lijst')
     }
 
-    playPlaylist(){
-
+    playPlaylist() {
+        alert('ja..speel lijst')
     }
 
 
@@ -26,16 +26,13 @@ class PlaylistAlbumButton extends Component {
             <div className="playlistContainer">
                 <img alt="playlist" className="playlistimg img-responsive img-rounded"
                     // src={this.props.playlist.img}
-                     src={'https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Halestorm2009albumcover.jpg/220px-Halestorm2009albumcover.jpg'}
+                     src={this.props.playlist.playlist_art}
                 />
-                <div className="overlay"> </div>
+                <div className="overlay" onClick={this.navigateToPlaylist}/>
                 <div className="buttonoverlay">
                     <p onClick={this.playPlaylist} className="glyphicon glyphicon-play player-button"/>
                 </div>
-                <h4 onClick={this.navigateToPlaylist}>
-                    <a href={this.props.playlist.url}>{this.props.playlist.title}</a>
-                </h4>
-
+                <h4 className="title">{this.props.playlist.title}</h4>
             </div>
         );
     }
